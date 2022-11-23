@@ -1,5 +1,7 @@
+import { Router } from './router/Router';
+
 export default () => {
   return (
-    <h1>HAPPY HACKING!</h1>
+    <Router />
   );
 }
