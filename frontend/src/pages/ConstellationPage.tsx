@@ -1,5 +1,13 @@
+import { MainContainer } from '../components/MainContainer';
+import { useParams } from 'react-router-dom';
+
 export const ConstellationPage = () => {
+    const { constellation } = useParams();
     return (
-        <h1>Constellation Page</h1>
+        <MainContainer>
+            {
+                constellation
+            }
+        </MainContainer>
     );
 }

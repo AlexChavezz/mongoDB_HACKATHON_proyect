@@ -1,0 +1,23 @@
+.mainContentHeader
+{
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.mainContentHeaderButton
+{
+    transition: transform 200ms ease;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid #fffe;
+    color: #fffe;
+    cursor: pointer;
+    margin-right: 30px;
+    height: 35px;
+    width: 85px;
+}
+.mainContentHeaderButton:hover
+{
+    transform: scale(1.1)
+}

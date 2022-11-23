@@ -6,8 +6,10 @@ export const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path='universe' element={<HomePage />}/>
-                <Route path=':constellation' element={<ConstellationPage />}/>
+                <Route path='universe' element={<HomePage />}>
+                    <Route path=':constellation' element={<ConstellationPage />}/>
+                </Route>
+                <Route path='*' element={<h1>Not Found</h1>}/>
             </Routes>
         </BrowserRouter>
     );
