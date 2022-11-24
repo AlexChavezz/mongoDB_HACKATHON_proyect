@@ -1,12 +1,29 @@
 import { MainContainer } from '../components/MainContainer';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../styles/ConstellationPageStyles.module.css';
+import { Comments } from '../components/Comment';
+import { developmentAPI } from '../helpers/developmentAPI';
+import { ConstellationState } from '../interfaces/intefaces';
+
+
+const constelationState = {
+    _id: '',
+    name: '',
+    myth:''
+}
 
 export const ConstellationPage = () => {
     const { constellation } = useParams();
+    const [constellationData, setConstellationData] = useState<ConstellationState>(constelationState);
+
     useEffect(() => {
-        console.log('render')
+        window.fetch(`${developmentAPI}/getByName/${constellation}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data._id) return setConstellationData(data);
+            throw new Error ('No data');            
+        })
     }, [])
     console.log(constellation)
     return (
@@ -25,15 +42,22 @@ export const ConstellationPage = () => {
                     <div
                         className={styles.constellationComments}
                     >
+                        <h3
+                            className={styles.constellationCommentsTitle}
+                        >COMMENTS</h3>
+                        <Comments />
                     </div>
                 </article>
                 <article
                     className={styles.constellationHistory}
                 >
+                    <h3
+                        className={styles.constellationHistoryTitle}
+                    >Did You Know?</h3>
                     <p
                         className={styles.constellationHistoryText}
                     >
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim incidunt nobis nihil accusantium commodi culpa inventore numquam, sint dignissimos, deserunt accusamus explicabo? Nihil eligendi ducimus qui consequatur repellendus numquam similique!
+                        {constellationData.myth}
                     </p>
                 </article>
             </section>

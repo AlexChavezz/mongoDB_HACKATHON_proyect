@@ -7,7 +7,20 @@ export interface ButtonProps
     onClick: () => void
 }
 
+export interface ConstellationState
+{
+    _id: string,
+    name: string,
+    myth: string
+}
+
 export interface MainContainerProps
 {
     children: React.ReactElement | []
+}
+
+export interface CommentProps
+{
+    comment: string,
+    _id: string
 }

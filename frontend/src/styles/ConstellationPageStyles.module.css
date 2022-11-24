@@ -23,18 +23,34 @@
 }
 .constellationComments
 {
-    /* background-color:brown; */
     height: 100%;
     width: 40%;
     padding: 15px;
+    background-color:rgba(204, 204, 204, 0.100);
+    border-radius: 5px;
+}
+.constellationCommentsTitle
+{
+    color: #fffe;
 }
 .constellationHistory
 {
     height: 250px;
     padding: 15px;
+    /* background-color:rgba(204, 204, 204, 0.200);  */
+    border-radius: 10px;
 }
 
+.constellationHistoryTitle
+{
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #fffe;
+}
 .constellationHistoryText
 {
     color: #ccc;
 }
+
+
