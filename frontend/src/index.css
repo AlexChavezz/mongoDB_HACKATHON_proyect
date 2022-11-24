@@ -10,6 +10,11 @@
   -webkit-text-size-adjust: 100%;
   font-family: 'Inter', sans-serif;
 }
+a
+{
+  text-decoration: none;
+  color: #fffe;
+}
 /* 
 a {
   font-weight: 500;

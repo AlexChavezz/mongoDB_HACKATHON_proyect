@@ -15,6 +15,23 @@ const getAllConstellations = async (req, res) => {
     }
 }
 
+const autoComplete = async (req, res) => {
+    const { name } = req.params;
+    try
+    {
+        const result = await collection.aggregate([
+            {$search: {autocomplete: {query: name, path: "name"}}},
+            {$limit:10},
+            {$project: {name:1, _id:1}}
+        ]).toArray();
+        res.json(result);
+    }
+    catch(error)
+    {
+        console.log(error)
+    }
+}
+
 const getByName = async(req, res) => {
     const { name } = req.params;
     console.log(name)
@@ -37,5 +54,6 @@ const getByName = async(req, res) => {
 
 module.exports = {
     getAllConstellations,
-    getByName
+    getByName,
+    autoComplete
 }

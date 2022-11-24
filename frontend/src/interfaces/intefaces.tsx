@@ -24,3 +24,11 @@ export interface CommentProps
     comment: string,
     _id: string
 }
+
+export interface SearchResultsProps
+{
+    autoCompleteResults: [] | {
+        _id: string;
+        name: string;
+    }[]
+}
