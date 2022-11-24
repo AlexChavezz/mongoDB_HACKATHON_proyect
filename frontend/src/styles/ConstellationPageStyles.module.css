@@ -1,0 +1,40 @@
+.contelationMainPage 
+{
+    /* width: 100%; */
+    height: calc( 100vh - 75px );
+    padding: 20px;
+    /* background-color:red; */
+    width: 1350px;
+    margin: 0px auto;
+}
+.constellationInfo
+{
+    display: flex;
+    height: calc(100% - 250px);
+    width: 100%;
+}
+
+.constellationImageContainer
+{
+    width: 60%;
+    height: 100%;
+    /* background-color: red; */
+    padding: 15px;
+}
+.constellationComments
+{
+    /* background-color:brown; */
+    height: 100%;
+    width: 40%;
+    padding: 15px;
+}
+.constellationHistory
+{
+    height: 250px;
+    padding: 15px;
+}
+
+.constellationHistoryText
+{
+    color: #ccc;
+}
