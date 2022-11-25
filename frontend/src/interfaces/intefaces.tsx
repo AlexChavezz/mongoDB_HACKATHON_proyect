@@ -4,7 +4,8 @@ export interface ButtonProps
 {
     text: string,
     className: string,
-    onClick: () => void
+    onClick: () => void,
+    children?: React.ReactElement | []
 }
 
 
@@ -42,4 +43,10 @@ export interface SearchResultsProps
         _id: string;
         name: string;
     }[]
+}
+
+export interface AuthModalContextData
+{
+    showAuthModal: boolean,
+    setShowAuthModal: React.Dispatch<React.SetStateAction<boolean>>
 }
