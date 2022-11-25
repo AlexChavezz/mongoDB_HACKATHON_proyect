@@ -1,5 +1,5 @@
 import { MainContainer } from '../components/MainContainer';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useNavigation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styles from '../styles/ConstellationPageStyles.module.css';
 import { Comments } from '../components/Comment';
@@ -10,22 +10,23 @@ import { ConstellationState } from '../interfaces/intefaces';
 const constelationState = {
     _id: '',
     name: '',
-    myth:''
+    myth: '',
+    comments: []
 }
 
 export const ConstellationPage = () => {
     const { constellation } = useParams();
     const [constellationData, setConstellationData] = useState<ConstellationState>(constelationState);
-
+    const navigate = useNavigate();
     useEffect(() => {
         window.fetch(`${developmentAPI}/getByName/${constellation}`)
-        .then(res => res.json())
-        .then(data => {
-            if(data._id) return setConstellationData(data);
-            throw new Error ('No data');            
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data._id) return setConstellationData(data);
+                navigate('/404');
+            })
     }, [])
-    console.log(constellation)
+
     return (
         <MainContainer>
             <section
@@ -45,7 +46,10 @@ export const ConstellationPage = () => {
                         <h3
                             className={styles.constellationCommentsTitle}
                         >COMMENTS</h3>
-                        <Comments />
+                        {
+                            constellationData.comments.map(comment => <Comments key={comment._id} {...comment} />)
+                        }
+
                     </div>
                 </article>
                 <article

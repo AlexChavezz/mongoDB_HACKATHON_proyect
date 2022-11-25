@@ -1,12 +1,11 @@
 const client = require("../database/client")
 
-const collection = client.db('ConstellationsDB').collection('constellations');
-
+const collectionConstellations = client.db('ConstellationsDB').collection('constellations');
+const commentsConstellations = client.db('ConstellationsDB').collection('comments');
 const getAllConstellations = async (req, res) => {
-    
     try
     {
-        const results = await collection.find({}).toArray();
+        const results = await collectionConstellations.find({}).toArray();
         res.json(results);
     }
     catch(error)
@@ -19,7 +18,7 @@ const autoComplete = async (req, res) => {
     const { name } = req.params;
     try
     {
-        const result = await collection.aggregate([
+        const result = await collectionConstellations.aggregate([
             {$search: {autocomplete: {query: name, path: "name"}}},
             {$limit:10},
             {$project: {name:1, _id:1}}
@@ -34,13 +33,13 @@ const autoComplete = async (req, res) => {
 
 const getByName = async(req, res) => {
     const { name } = req.params;
-    console.log(name)
     try
     {
-        const result = await collection.findOne({name:{$eq:name}});
+        const result = await collectionConstellations.findOne({name:{$eq:name}});
         if(result)
         {
-            return res.status(200).json(result);
+            const comments = await commentsConstellations.find({constellation_id:{$eq:result._id}}).toArray();
+            return res.status(200).json({...result, comments: comments});
         }
         res.status(200).json({message: "No constellation found with that name."});
     }

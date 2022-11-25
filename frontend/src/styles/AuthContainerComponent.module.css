@@ -1,0 +1,21 @@
+.authMainContainer
+{
+    align-items:center;
+    position: absolute;
+    top:0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: 0px auto;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+}
+.authContainer
+{
+    height: 70vh;
+    width: 30vw;
+    background-color:red;
+}

@@ -7,11 +7,22 @@ export interface ButtonProps
     onClick: () => void
 }
 
+
+export interface Comments {
+    _id: string,
+    constellation_id: string,
+    comment: string,
+    user_id: string,
+    owner: string,
+}
+
+
 export interface ConstellationState
 {
     _id: string,
     name: string,
-    myth: string
+    myth: string,
+    comments: Comments[] | []
 }
 
 export interface MainContainerProps
