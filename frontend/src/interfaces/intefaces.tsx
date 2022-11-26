@@ -50,3 +50,17 @@ export interface AuthModalContextData
     showAuthModal: boolean,
     setShowAuthModal: React.Dispatch<React.SetStateAction<boolean>>
 }
+
+export type authState = "SIGN IN" | "SIGN UP";
+
+export interface AuthFormProps
+{
+    authState: authState
+}
+
+export interface AuthFormInterface
+{
+    userName: string,
+    password: string,
+    captcha?: string    
+}

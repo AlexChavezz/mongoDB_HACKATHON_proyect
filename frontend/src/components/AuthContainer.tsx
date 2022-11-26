@@ -4,8 +4,10 @@ import closeIcon from '../assets/close_FILL0_wght400_GRAD0_opsz48.svg';
 import { AuthModalContext } from '../context/AuthModalContext';
 import { Button } from './Button';
 import arrow from '../assets/arrow_right_alt_FILL0_wght400_GRAD0_opsz48.svg';
+import { AuthForm } from './AuthForm';
+import { authState } from '../interfaces/intefaces';
 
-type authState = "SIGN IN" | "SIGN UP";
+
 
 export const AuthContainer = () => {
 
@@ -14,18 +16,12 @@ export const AuthContainer = () => {
     const closeModal = () => {
         setShowAuthModal(false);
     }
-    const closeIf = (e: React.MouseEvent<HTMLDivElement>) => {
-        if(e.target.classList.contains('_authMainContainer_1til9_1'))
-        {
-            closeModal();
-        }
-    }
     const toggleAuthState = () => {
         setAuthState(authState === "SIGN IN" ? "SIGN UP" : "SIGN IN");
     }
     return (
         <section
-            onClick={closeIf}
+            // onClick={closeIf}
             className={styles.authMainContainer}
         >
             <article
@@ -54,7 +50,7 @@ export const AuthContainer = () => {
                 <main
                     className={styles.authBody}
                 >
-
+                    <AuthForm authState={authState} />
                 </main>
                 <footer
                     className={styles.authFooter}

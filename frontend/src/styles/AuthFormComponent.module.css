@@ -1,0 +1,53 @@
+
+.authForm
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.authFormInputContainer
+{
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.authLabel
+{
+    display: block;
+    color: #ffe;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
+.authFormInput
+{
+    padding: 10px;
+    outline: none;
+    width: 100%;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.400);
+}
+.authFormInputRetro
+{
+    display: block;
+    color: #fffe;
+    font-size: 12px;
+    margin-left: 20px;
+}
+
+
+.allowed
+{
+    color: #0f0;
+}
+.notAllowed
+{
+    color: #ff0000;
+}
+.authFormLabelContainer
+{
+    display: flex;
+    width: 100%;
+}
