@@ -3,7 +3,6 @@ import styles from '../styles/AuthContainerComponent.module.css';
 import closeIcon from '../assets/close_FILL0_wght400_GRAD0_opsz48.svg';
 import { AuthModalContext } from '../context/AuthModalContext';
 import { Button } from './Button';
-import arrow from '../assets/arrow_right_alt_FILL0_wght400_GRAD0_opsz48.svg';
 import { AuthForm } from './AuthForm';
 import { authState } from '../interfaces/intefaces';
 
@@ -12,6 +11,7 @@ import { authState } from '../interfaces/intefaces';
 export const AuthContainer = () => {
 
     const [authState, setAuthState] = useState<authState>("SIGN UP");
+   
     const { setShowAuthModal } = useContext(AuthModalContext);
     const closeModal = () => {
         setShowAuthModal(false);
@@ -50,7 +50,9 @@ export const AuthContainer = () => {
                 <main
                     className={styles.authBody}
                 >
-                    <AuthForm authState={authState} />
+                    <AuthForm 
+                        authState={authState} 
+                    />
                 </main>
                 <footer
                     className={styles.authFooter}
@@ -75,13 +77,6 @@ export const AuthContainer = () => {
                     <div
                         className={styles.authFooterButtonContainer}
                     >
-                        <Button 
-                            text={authState}
-                            onClick={()=>{}}
-                            className={styles.authFooterButton}
-                        >
-                            <img src={arrow} alt="arrow" className={styles.authImageButton}/>
-                        </Button>
                     </div>
                 </footer>
             </article>

@@ -66,32 +66,7 @@
     color: white;
 }
 
-.authFooterButton
-{
-    align-items:center;
-    justify-content: center;
-    transition: transform 200ms ease;
-    border-radius: 5px;
-    background: transparent;
-    border: 1px solid #fffe;
-    color: #fffe;
-    cursor: pointer;
-    display: flex;
-    margin-right: 30px;
-    height: 35px;
-    min-width: 85px;
-    padding-left: 10px;
-}
-.authFooterButton:hover
-{
-    transform: scale(1.1)
-}
 .authFooterChangeState
 {
     cursor: pointer;
-}
-.authImageButton
-{
-    width: 25px;
-    margin: 0px 10px;
 }

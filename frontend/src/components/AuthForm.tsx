@@ -3,6 +3,8 @@ import { developmentAPI } from "../helpers/developmentAPI";
 import { useForm } from "../hooks/useForm";
 import { AuthFormInterface, AuthFormProps } from "../interfaces/intefaces";
 import styles from '../styles/AuthFormComponent.module.css';
+import { Button } from "./Button";
+import arrow from '../assets/arrow_right_alt_FILL0_wght400_GRAD0_opsz48.svg';
 
 
 
@@ -15,6 +17,7 @@ const inititalState = {
 
 export const AuthForm = ({ authState }: AuthFormProps) => {
     const [isUserAllowed, setIsUserAllowed] = useState<boolean | null>(null);
+    const [isFormAllowed, setIsFormAllowed] = useState<boolean>(true);
     const { handleChange, values } = useForm<AuthFormInterface>(inititalState);
     const { userName, password, captcha } = values;
     useEffect(() => {
@@ -30,6 +33,20 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
 
     }, [authState, userName])
     // length should be greater than 6
+    function validate() {
+        if (userName.trim().length < 3) {
+            return false;
+        }
+        else if (password.trim().length < 6) {
+            return false;
+        }
+        // else if (captcha.trim().length === 0) {
+        //     return false;
+        // }
+    }
+    function validateSubmit() {
+
+    }
     function signIn() {
 
     }
@@ -107,6 +124,14 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                     />
                 </div>
             }
+            <Button
+                text={authState}
+                onClick={() => { }}
+                className={`${!isFormAllowed ? styles.authFooterButton : styles.authFooterButtonDisabled}`}
+                isDisabled={isFormAllowed}
+            >
+                <img src={arrow} alt="arrow" className={styles.authImageButton} />
+            </Button>
         </form>
     );
 }

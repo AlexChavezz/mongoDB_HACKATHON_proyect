@@ -5,7 +5,8 @@ export interface ButtonProps
     text: string,
     className: string,
     onClick: () => void,
-    children?: React.ReactElement | []
+    children?: React.ReactElement | [],
+    isDisabled?: boolean
 }
 
 
@@ -55,7 +56,7 @@ export type authState = "SIGN IN" | "SIGN UP";
 
 export interface AuthFormProps
 {
-    authState: authState
+    authState: authState,
 }
 
 export interface AuthFormInterface
