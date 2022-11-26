@@ -1,20 +1,35 @@
 import { useState } from 'react';
 import { AuthContainer } from './components/AuthContainer';
+import { AuthContext } from './context/AuthContext';
 import { AuthModalContext } from './context/AuthModalContext';
+import { User } from './interfaces/intefaces';
 import { Router } from './router/Router';
 
-export default () => {
 
+const initialState: User = 
+{
+  _id:'',
+  userName:''
+}
+
+
+export default () => {
+  const [user, setUser] = useState<User | null>(initialState);
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
   return (
-    <AuthModalContext.Provider value={{
-      showAuthModal,
-      setShowAuthModal
+    <AuthContext.Provider value={{
+      user, 
+      setUser
     }}>
-      {
-        showAuthModal && <AuthContainer />
-      }
-      <Router />
-    </AuthModalContext.Provider>
+      <AuthModalContext.Provider value={{
+        showAuthModal,
+        setShowAuthModal
+      }}>
+        {
+          showAuthModal && <AuthContainer />
+        }
+        <Router />
+      </AuthModalContext.Provider>
+    </AuthContext.Provider>
   );
 }

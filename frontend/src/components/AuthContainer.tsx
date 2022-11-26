@@ -2,8 +2,8 @@ import { useContext, useState } from 'react';
 import styles from '../styles/AuthContainerComponent.module.css';
 import closeIcon from '../assets/close_FILL0_wght400_GRAD0_opsz48.svg';
 import { AuthModalContext } from '../context/AuthModalContext';
-import { Button } from './Button';
-import { AuthForm } from './AuthForm';
+import { Button } from './FormComponents/Button';
+import { AuthForm } from './FormComponents/AuthForm';
 import { authState } from '../interfaces/intefaces';
 
 

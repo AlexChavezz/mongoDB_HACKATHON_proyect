@@ -65,3 +65,16 @@ export interface AuthFormInterface
     password: string,
     captcha?: string    
 }
+
+export interface User 
+{
+    _id: string,
+    userName: string
+}
+
+
+export interface AuthContextInterface
+{
+    user: User | null,
+    setUser: React.Dispatch<React.SetStateAction<User | null>>
+}

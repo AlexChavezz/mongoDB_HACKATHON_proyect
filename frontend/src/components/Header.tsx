@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AuthModalContext } from '../context/AuthModalContext';
 import styles from '../styles/HeaderComponentStyles.module.css';
-import { Button } from './Button';
+import { Button } from './FormComponents/Button';
 
 export const Header = () => {
     const { setShowAuthModal } = useContext(AuthModalContext);
