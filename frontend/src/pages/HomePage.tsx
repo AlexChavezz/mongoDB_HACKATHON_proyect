@@ -2,7 +2,7 @@ import styles from '../styles/HomePageStyles.module.css';
 import { MainContainer } from '../components/MainContainer';
 import searchImahge from '../assets/search_FILL0_wght400_GRAD0_opsz48.svg';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { developmentAPI } from '../helpers/developmentAPI';
+import { API } from '../helpers/API';
 import { SearchResults } from '../components/SearchResults';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ export const HomePage = () => {
 
     useEffect(() => {
         if(constellation.length > 0) {
-            window.fetch(`${developmentAPI}/autocomplete/${constellation}`)
+            window.fetch(`${API}/autocomplete/${constellation}`)
                 .then(res => res.json())
                 .then(data => {
                     console.table(data)

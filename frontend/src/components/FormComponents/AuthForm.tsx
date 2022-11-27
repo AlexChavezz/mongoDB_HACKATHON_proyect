@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { developmentAPI } from "../../helpers/developmentAPI";
+import React, { useContext, useEffect, useState } from "react";
+import { API } from "../../helpers/API";
 import { useForm } from "../../hooks/useForm";
 import { AuthFormInterface, AuthFormProps } from "../../interfaces/intefaces";
 import styles from '../../styles/AuthFormComponent.module.css';
 import { Button } from "./Button";
 import arrow from '../../assets/arrow_right_alt_FILL0_wght400_GRAD0_opsz48.svg';
+import { AuthContext } from "../../context/AuthContext";
 
 
 
@@ -20,18 +21,16 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
     const [isFormAllowed, setIsFormAllowed] = useState<boolean>(true);
     const { handleChange, values } = useForm<AuthFormInterface>(inititalState);
     const { userName, password, captcha } = values;
+    const { setUser } = useContext(AuthContext);
     useEffect(() => {
         setIsFormAllowed(true);
         if (authState === "SIGN UP" && userName.trim().length >= 3) {
-            window.fetch(`${developmentAPI}/users/validateIfExistsByAutoComplete/${userName}`)
+            window.fetch(`${API}/users/validateIfExistsByAutoComplete/${userName}`)
                 .then(res => res.json())
                 .then(data => {
                     setIsUserAllowed(data.isAllowed);
                 })
                 .catch(err => console.log(err))
-            // if (password.trim().length >= 6 && captcha?.trim().length > 0) {
-            //     setIsFormAllowed(false);
-            // }
         }
 
     }, [authState, userName, password, captcha])
@@ -47,8 +46,28 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
     function validateSubmit() {
 
     }
-    function signIn() {
-        
+
+
+    async function signIn() {
+        try
+        {
+            const res = await window.fetch(`${API}/users/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({userName, password})
+            });
+            const {token, ...rest} = await res.json();
+            // -> save token in local storage
+            window.localStorage.setItem('token', JSON.stringify(token));
+            // -> change my authstate
+            setUser({ ...rest, token });
+        }
+        catch(error)
+        {
+            console.log(error)
+        }
     }
     function signUp() {
 
@@ -152,7 +171,7 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                 text={authState}
                 onClick={() => { }}
                 className={`${!isFormAllowed ? styles.authFooterButton : styles.authFooterButtonDisabled}`}
-                isDisabled={isFormAllowed}
+                isDisabled={false}
             >
                 <img src={arrow} alt="arrow" className={styles.authImageButton} />
             </Button>

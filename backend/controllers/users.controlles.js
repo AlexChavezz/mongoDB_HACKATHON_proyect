@@ -1,4 +1,5 @@
 const bcryptjs = require("bcryptjs");
+const { ObjectId } = require("mongodb");
 const client = require('../database/client');
 const { generateJWT } = require("../helpers/generateJWT");
 const isThereErrors = require("../helpers/isThereErrors");
@@ -86,8 +87,20 @@ const saveUser = async (req, res) => {
     }
 }
 
+const validateUserByToken = async (req, res) => {
+    const uid = req.uid;
+    if(uid)
+    {
+        const user = await usersCollection.findOne({_id: {$eq: ObjectId(uid)}});
+        const {password, ...rest} = user;
+        const token = await generateJWT(user._id);
+        return res.status(200).json( { ...rest, token } );
+    }
+}
+
 module.exports = {
     isUserExist,
     getUser,
-    saveUser
+    saveUser,
+    validateUserByToken
 }

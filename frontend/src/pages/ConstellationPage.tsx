@@ -3,7 +3,7 @@ import { useNavigate, useNavigation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styles from '../styles/ConstellationPageStyles.module.css';
 import { Comments } from '../components/Comment';
-import { developmentAPI } from '../helpers/developmentAPI';
+import { API } from '../helpers/API';
 import { ConstellationState } from '../interfaces/intefaces';
 
 
@@ -19,7 +19,7 @@ export const ConstellationPage = () => {
     const [constellationData, setConstellationData] = useState<ConstellationState>(constelationState);
     const navigate = useNavigate();
     useEffect(() => {
-        window.fetch(`${developmentAPI}/getByName/${constellation}`)
+        window.fetch(`${API}/getByName/${constellation}`)
             .then(res => res.json())
             .then(data => {
                 if (data._id) return setConstellationData(data);

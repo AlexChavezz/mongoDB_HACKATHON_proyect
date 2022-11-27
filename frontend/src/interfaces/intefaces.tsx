@@ -69,7 +69,8 @@ export interface AuthFormInterface
 export interface User 
 {
     _id: string,
-    userName: string
+    userName: string,
+    token: string
 }
 
 
