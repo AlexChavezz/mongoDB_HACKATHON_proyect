@@ -5,7 +5,7 @@ const generateJWT = (uid) => {
     return new Promise((resolve, reject) => {
         const payload = { uid };
         jwt.sign(payload, "shhhhh", {
-            expiresIn: '1h'
+            expiresIn: '4h'
         }, (err, token) => {
             if (err) {
                 console.log(err);

@@ -27,19 +27,18 @@ const getUser = async (req, res) => {
     const { userName, password } = req.body;
     if (isThereErrors(req))
     {
-        console.log(isThereErrors(req))
         return res.status(400).json({ error: "User name or password are invalid" });
     }
     try
     {
         const user = await usersCollection.findOne({userName:{$eq:userName}});
-        const {password:pass , ...rest} = user;
-            if(user && bcryptjs.compareSync(password, pass))
-            {
-                const token = await generateJWT(user._id);
-                return res.status(200).json({...rest, token });
-            }
-            return res.status(400).json({message: "user name or password is incorrect"});
+        if(user && bcryptjs.compareSync(password, user.password))
+        {
+            const {password:pass , ...rest} = user;
+            const token = await generateJWT(user._id);
+            return res.status(200).json({...rest, token });
+        }
+        return res.status(400).json({message: "user name or password is incorrect"});
     } 
     catch(error)
     {
@@ -71,10 +70,11 @@ const saveUser = async (req, res) => {
         const hash = bcryptjs.hashSync(password, salt);
 
         // -> save user
-        const { acknowledged } = await usersCollection.insertOne({ userName, password: hash });
-        if(acknowledged)
+        const response = await usersCollection.insertOne({ userName, password: hash });
+        if(response.acknowledged)
         {
-            return res.status(201).json({ message: "User created successfully" });
+            const token = await generateJWT(response.insertedId);
+            return res.status(201).json({userName, _id: response.insertedId, token});
         }
         else
         {

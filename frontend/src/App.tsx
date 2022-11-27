@@ -6,40 +6,36 @@ import { API } from './helpers/API';
 import { User } from './interfaces/intefaces';
 import { Router } from './router/Router';
 
-
-const initialState: User = 
-{
-  _id:'',
-  userName:'',
-  token:''
-}
-
-
 export default () => {
-  const [user, setUser] = useState<User | null>(initialState);
+  const [user, setUser] = useState<User | null>(null);
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
   
   useEffect(()=>{
     // -> If token exists into localStorage, then try to login user
-    const token = window.localStorage.getItem('token');
+    let token = window.localStorage.getItem('token');
     if(token)
     {
+      console.log(token)
       window.fetch(`${API}/users/verify-identity-by-token`, {
         method:'GET',
         headers: {
-          'x-token': JSON.stringify(token)
+          'x-token': JSON.parse(token)
         }
       })
       .then(res => res.json())
       .then((data) => {
+        console.log(data)
+        console.log(token)
         if(!data.token)
         {
+          console.log(token)
           window.localStorage.removeItem('token');
           setUser(null);
           return;
         }
         setUser(data)
-        window.localStorage.setItem('token', token);
+        // window.localStorage.removeItem('token');
+        window.localStorage.setItem('token', JSON.stringify(data.token));
       })
       .catch(console.log)
     

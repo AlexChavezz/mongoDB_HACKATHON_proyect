@@ -59,10 +59,13 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                 body: JSON.stringify({userName, password})
             });
             const {token, ...rest} = await res.json();
-            // -> save token in local storage
-            window.localStorage.setItem('token', JSON.stringify(token));
-            // -> change my authstate
-            setUser({ ...rest, token });
+            if(token)
+            {
+                // -> save token in local storage
+                window.localStorage.setItem('token', JSON.stringify(token));
+                // -> change my authstate
+                setUser({ ...rest, token });
+            }
         }
         catch(error)
         {
