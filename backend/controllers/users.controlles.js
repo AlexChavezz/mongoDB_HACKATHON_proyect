@@ -1,7 +1,7 @@
 const bcryptjs = require("bcryptjs");
-const { json } = require("express");
-const { GridFSBucket } = require("mongodb");
 const client = require('../database/client');
+const { generateJWT } = require("../helpers/generateJWT");
+const isThereErrors = require("../helpers/isThereErrors");
 
 const usersCollection = client.db('ConstellationsDB').collection('users');
 
@@ -24,14 +24,21 @@ const isUserExist = async (req, res) => {
 
 const getUser = async (req, res) => {
     const { userName, password } = req.body;
+    if (isThereErrors(req))
+    {
+        console.log(isThereErrors(req))
+        return res.status(400).json({ error: "User name or password are invalid" });
+    }
     try
     {
         const user = await usersCollection.findOne({userName:{$eq:userName}});
-            if(user && bcryptjs.compareSync(password, user.password))
+        const {password:pass , ...rest} = user;
+            if(user && bcryptjs.compareSync(password, pass))
             {
-                return res.status(200).json(user);
+                const token = await generateJWT(user._id);
+                return res.status(200).json({...rest, token });
             }
-            return res.status(200).json({message: "user name or password is incorrect"});
+            return res.status(400).json({message: "user name or password is incorrect"});
     } 
     catch(error)
     {
@@ -42,7 +49,10 @@ const getUser = async (req, res) => {
 
 const saveUser = async (req, res) => {
     const { userName, password, captcha } = req.body;
-    console.log(userName)
+    if(isThereErrors(req))
+    {
+        return res.status(400).json({ error: "invalid requirements" });
+    }
     try
     {
 
