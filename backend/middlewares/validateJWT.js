@@ -2,8 +2,7 @@ const { verify } = require("jsonwebtoken");
 
 const validateJWT = (req, res, next) => 
 {
-    // const token = req.header("x-token");
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MzgyNDZlMzBhYWU1NGE2MzlmNGYxMTAiLCJpYXQiOjE2Njk1MjQ3MDAsImV4cCI6MTY2OTUyODMwMH0.zLufFrSPTIZiAXxlYp2EcsWHv7LiY_tbzg7PWdIszUM"
+    const token = req.header("x-token");
     if(!token)
     {
         return res.status(401).json({message: "No token provided"});
