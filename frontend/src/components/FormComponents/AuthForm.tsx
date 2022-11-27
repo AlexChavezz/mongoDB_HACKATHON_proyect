@@ -6,6 +6,7 @@ import styles from '../../styles/AuthFormComponent.module.css';
 import { Button } from "./Button";
 import arrow from '../../assets/arrow_right_alt_FILL0_wght400_GRAD0_opsz48.svg';
 import { AuthContext } from "../../context/AuthContext";
+import { AuthModalContext } from "../../context/AuthModalContext";
 
 
 
@@ -22,10 +23,11 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
     const { handleChange, values } = useForm<AuthFormInterface>(inititalState);
     const { userName, password, captcha } = values;
     const { setUser } = useContext(AuthContext);
+    const { setShowAuthModal } = useContext(AuthModalContext);
     useEffect(() => {
         setIsFormAllowed(true);
         if (authState === "SIGN UP" && userName.trim().length >= 3) {
-            window.fetch(`${API}/users/validateIfExistsByAutoComplete/${userName}`)
+            window.fetch(`${API}/users/validate-if-exists-by-autocomplete/${userName}`)
                 .then(res => res.json())
                 .then(data => {
                     setIsUserAllowed(data.isAllowed);
@@ -65,6 +67,7 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                 window.localStorage.setItem('token', JSON.stringify(token));
                 // -> change my authstate
                 setUser({ ...rest, token });
+                setShowAuthModal(false);
             }
         }
         catch(error)
@@ -72,8 +75,30 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
             console.log(error)
         }
     }
-    function signUp() {
-
+    async function signUp() {
+        try
+        {
+            const response = await window.fetch(`${API}/users/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({userName, password})
+            })
+            const data = await response.json();
+            console.log(data)
+            if( data.token )
+            {
+                window.localStorage.setItem('token', JSON.stringify(data.token));
+                setUser({ ...data, token: data.token });
+                return setShowAuthModal(false);
+            }
+            
+        }
+        catch(error)
+        {
+            console.log(error)
+        }
     }
 
     function onSubmit(e: React.FormEvent) {

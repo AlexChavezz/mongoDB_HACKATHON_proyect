@@ -11,7 +11,7 @@ export default () => {
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
   
   useEffect(()=>{
-    // -> If token exists into localStorage, then try to login user
+    // -> If token exists into localStorage, then try login user
     let token = window.localStorage.getItem('token');
     if(token)
     {
