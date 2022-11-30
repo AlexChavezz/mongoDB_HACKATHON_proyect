@@ -19,7 +19,7 @@ class Server {
     }
     routes()
     {
-        this.app.use(`${this.mainPath}/questions`, require('../routes/questions.routes'));
+        this.app.use(`${this.mainPath}/comments`, require('../routes/comments.routes'));
         this.app.use(this.mainPath, require('../routes/constellations.routes.js'));
         this.app.use(`${this.mainPath}/users`, require('../routes/users.routes.js'));
     }

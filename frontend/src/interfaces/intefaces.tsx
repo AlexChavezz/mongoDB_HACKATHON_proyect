@@ -15,7 +15,7 @@ export interface Comments {
     constellation_id: string,
     comment: string,
     user_id: string,
-    owner: string,
+    user: string,
 }
 
 
@@ -63,7 +63,7 @@ export interface AuthFormInterface
 {
     userName: string,
     password: string,
-    captcha?: string    
+    confirmPassword?: string    
 }
 
 export interface User 
@@ -78,4 +78,9 @@ export interface AuthContextInterface
 {
     user: User | null,
     setUser: React.Dispatch<React.SetStateAction<User | null>>
+}
+
+export interface CommentFormProps {
+    constellationData: ConstellationState,
+    setConstellationData: React.Dispatch<React.SetStateAction<ConstellationState>>
 }

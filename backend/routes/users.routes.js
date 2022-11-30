@@ -13,6 +13,6 @@ router.post('/register', [
     check('userName', 'userName is required').not().isEmpty(),
     check('password', 'password is required and length should be greater than 6').isLength({ min: 6 }),
 ] ,saveUser);
-router.get('/validate-if-exists-by-autocomplete/:userName', isUserExist);
+router.get('/get-user/:userName', isUserExist);
 router.get('/verify-identity-by-token', validateJWT, validateUserByToken);
 module.exports = router;

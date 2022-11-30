@@ -21,3 +21,40 @@
 {
     transform: scale(1.1)
 }
+
+.mainContentHeaderUser
+{
+    color: #fffe;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.mainContentHeaderUser:hover
+{
+    background-color: rgba(204, 204, 204, 0.2);
+}
+
+.mainContentHeaderModal
+{
+    position: absolute;
+    top: 75px;
+    background-color: rgba(204, 204, 204, 0.20);
+    width: 200px;
+    height: 50px;
+    color: #fffe;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 5px;
+}
+.mainContentHeaderModalIcon
+{
+    width: 24px;
+    margin: 0px 10px;
+}
+
+.mainContentHeaderModalText
+{
+    font-size: 15px;
+}

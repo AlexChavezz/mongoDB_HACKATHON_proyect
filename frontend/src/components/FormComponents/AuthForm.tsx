@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { API } from "../../helpers/API";
 import { useForm } from "../../hooks/useForm";
 import { AuthFormInterface, AuthFormProps } from "../../interfaces/intefaces";
@@ -7,13 +7,14 @@ import { Button } from "./Button";
 import arrow from '../../assets/arrow_right_alt_FILL0_wght400_GRAD0_opsz48.svg';
 import { AuthContext } from "../../context/AuthContext";
 import { AuthModalContext } from "../../context/AuthModalContext";
+import { useAuth } from "../../hooks/useAuth";
 
 
 
 const inititalState = {
     userName: '',
     password: '',
-    captcha: ''
+    confirmPassword: ''
 }
 
 
@@ -21,95 +22,48 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
     const [isUserAllowed, setIsUserAllowed] = useState<boolean | null>(null);
     const [isFormAllowed, setIsFormAllowed] = useState<boolean>(true);
     const { handleChange, values } = useForm<AuthFormInterface>(inititalState);
-    const { userName, password, captcha } = values;
-    const { setUser } = useContext(AuthContext);
-    const { setShowAuthModal } = useContext(AuthModalContext);
+    const { userName, password, confirmPassword } = values;
     useEffect(() => {
         setIsFormAllowed(true);
         if (authState === "SIGN UP" && userName.trim().length >= 3) {
-            window.fetch(`${API}/users/validate-if-exists-by-autocomplete/${userName}`)
+            console.log(userName)
+            window.fetch(`${API}/users/get-user/${userName}`)
                 .then(res => res.json())
-                .then(data => {
-                    setIsUserAllowed(data.isAllowed);
+                .then((user) => {
+                    // console.log(userName)
+                    if(user)
+                    {
+                        console.log('not allowed')
+                        setIsUserAllowed(false);
+                    }else
+                    {
+                        console.log('allowed')
+                        setIsUserAllowed(true);
+
+                    }
                 })
                 .catch(err => console.log(err))
         }
+        if( authState === "SIGN UP" && password.trim().length >=6 && password === confirmPassword){
+            setIsFormAllowed(false);
+        }
+        if( authState === "SIGN IN" && password.trim().length >=6 && userName.trim().length >= 3){
+            setIsFormAllowed(false);
+        }
+        
 
-    }, [authState, userName, password, captcha])
-    // length should be greater than 6
-    function validate() {
-        if (userName.trim().length < 3) {
-            return false;
-        }
-        else if (password.trim().length < 6) {
-            return false;
-        }
-    }
-    function validateSubmit() {
-
-    }
-
-
-    async function signIn() {
-        try
-        {
-            const res = await window.fetch(`${API}/users/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({userName, password})
-            });
-            const {token, ...rest} = await res.json();
-            if(token)
-            {
-                // -> save token in local storage
-                window.localStorage.setItem('token', JSON.stringify(token));
-                // -> change my authstate
-                setUser({ ...rest, token });
-                setShowAuthModal(false);
-            }
-        }
-        catch(error)
-        {
-            console.log(error)
-        }
-    }
-    async function signUp() {
-        try
-        {
-            const response = await window.fetch(`${API}/users/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({userName, password})
-            })
-            const data = await response.json();
-            console.log(data)
-            if( data.token )
-            {
-                window.localStorage.setItem('token', JSON.stringify(data.token));
-                setUser({ ...data, token: data.token });
-                return setShowAuthModal(false);
-            }
-            
-        }
-        catch(error)
-        {
-            console.log(error)
-        }
-    }
-
+    }, [authState, userName, password, confirmPassword])
+  
+    const { signIn, signUp, logout } = useAuth();    
     function onSubmit(e: React.FormEvent) {
         e.preventDefault();
-        if (authState === "SIGN UP")
+        if (authState === "SIGN UP" && confirmPassword)
         {
-            signUp();
+            signUp(userName, password, confirmPassword);
         }
         else if (authState === "SIGN IN")
         {
-            signIn();
+            signIn(userName, password);
         }
     }
     return (
@@ -182,15 +136,15 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                 >
                     <label
                         className={styles.authLabel}
-                        htmlFor="captcha"
+                        htmlFor="confirmPassword"
                     >
-                        Resolve:
+                        Confirm password: 
                     </label>
                     <input
-                        type="text"
+                        type="password"
                         className={styles.authFormInput}
-                        name="captcha"
-                        value={captcha}
+                        name="confirmPassword"
+                        value={confirmPassword}
                         onChange={handleChange}
                     />
                 </div>
@@ -199,7 +153,7 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                 text={authState}
                 onClick={() => { }}
                 className={`${!isFormAllowed ? styles.authFooterButton : styles.authFooterButtonDisabled}`}
-                isDisabled={false}
+                isDisabled={isFormAllowed}
             >
                 <img src={arrow} alt="arrow" className={styles.authImageButton} />
             </Button>

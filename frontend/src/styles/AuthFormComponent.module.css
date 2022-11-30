@@ -9,6 +9,7 @@
 {
     width: 100%;
     margin: 10px 0px;
+    position: relative;
 }
 
 .authLabel
@@ -69,6 +70,9 @@
     height: 35px;
     min-width: 85px;
     padding-left: 10px;
+    position: absolute;
+    bottom: 50px;
+    right: 20px;
 }
 .authFooterButton:hover
 {
@@ -97,4 +101,7 @@
     padding-left: 10px;
     opacity: 0.5;
     cursor: not-allowed;
+    position: absolute;
+    bottom: 50px;
+    right: 20px;
 }

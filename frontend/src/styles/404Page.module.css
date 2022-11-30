@@ -1,0 +1,25 @@
+*
+{
+    padding:0px;
+    margin:0px;
+}
+.page404Container
+{
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../assets/bg.gif');
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.page404Title
+{
+    font-size: 25px;
+    color: #ccce;
+    margin-bottom: 100px;
+    text-transform: uppercase;
+}
+.page404Title a
+{
+    margin-left: 10px;
+}

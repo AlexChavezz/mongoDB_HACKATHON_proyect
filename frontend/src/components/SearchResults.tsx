@@ -7,7 +7,8 @@ export const SearchResults = ({ autoCompleteResults }: SearchResultsProps) => {
         <div
             className={styles.searchResultsContainer}
         >
-            <ul>
+            <ul
+            >
                 {
                     autoCompleteResults.map((element) => {
                         return (
@@ -15,7 +16,10 @@ export const SearchResults = ({ autoCompleteResults }: SearchResultsProps) => {
                                 className={styles.searchResultsContainerItem}
                                 key={element._id}
                             >
-                                <NavLink to={`/universe/${element.name}`}>
+                                <NavLink 
+                                    to={`/universe/${element.name}`}
+                                    className={styles.searchResultsContainerLink}
+                                    >
                                     {element.name}
                                 </NavLink>
                             </li>

@@ -26,12 +26,14 @@
     height: 100%;
     width: 30%;
     padding: 15px;
-    background-color:rgba(204, 204, 204, 0.100);
     border-radius: 5px;
+    position: relative;
 }
 .constellationCommentsTitle
 {
     color: #fffe;
+    font-size: 1rem;
+    font-weight: 400;
 }
 .constellationHistory
 {
@@ -53,4 +55,16 @@
     color: #ccc;
 }
 
+.constellationCommentsHeader
+{
+    height: 75%;
+    overflow-y: overlay;
+    /* overflow-y: scroll;
+    overflo */
+}
+
+.constellationCommentsForm
+{
+    height: 25%;
+}
 
