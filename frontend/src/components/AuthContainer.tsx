@@ -1,8 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from '../styles/AuthContainerComponent.module.css';
 import closeIcon from '../assets/close_FILL0_wght400_GRAD0_opsz48.svg';
 import { AuthModalContext } from '../context/AuthModalContext';
-import { Button } from './FormComponents/Button';
 import { AuthForm } from './FormComponents/AuthForm';
 import { authState } from '../interfaces/intefaces';
 
@@ -11,7 +10,6 @@ import { authState } from '../interfaces/intefaces';
 export const AuthContainer = () => {
 
     const [authState, setAuthState] = useState<authState>("SIGN UP");
-   
     const { setShowAuthModal } = useContext(AuthModalContext);
     const closeModal = () => {
         setShowAuthModal(false);
@@ -21,7 +19,6 @@ export const AuthContainer = () => {
     }
     return (
         <section
-            // onClick={closeIf}
             className={styles.authMainContainer}
         >
             <article
@@ -51,7 +48,8 @@ export const AuthContainer = () => {
                     className={styles.authBody}
                 >
                     <AuthForm 
-                        authState={authState} 
+                        authState={authState}
+                        setAuthState={setAuthState}
                     />
                 </main>
                 <footer

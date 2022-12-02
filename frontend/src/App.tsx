@@ -15,7 +15,6 @@ export default () => {
     let token = window.localStorage.getItem('token');
     if(token)
     {
-      console.log(token)
       window.fetch(`${API}/users/verify-identity-by-token`, {
         method:'GET',
         headers: {
@@ -24,8 +23,6 @@ export default () => {
       })
       .then(res => res.json())
       .then((data) => {
-        console.log(data)
-        console.log(token)
         if(!data.token)
         {
           console.log(token)

@@ -18,7 +18,7 @@
     width: 500px;
     border-radius: 5px;
     box-shadow: rgba(255, 254, 254, 0.562) 0px 5px 15px;
-    background-image: url('../assets/bg.gif');
+    background-color: black;
     position: relative;
     padding: 30px;
 }

@@ -6,24 +6,30 @@
     flex-direction: column;
     min-height: 50px;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.10);
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-between; */
 }
 
 .authorName
 {
-    font-size: 1em;
+    font-size: .8rem;
     font-weight: 600;
     color: #fffe;
-    margin-bottom: 5px;
     font-weight: 400;
+    margin-left: 5px;
 }
 
 .authorComment
 {
     color: #ccc;
     font-size: 0.8em;
-    margin-top: 5px;
+    background-color: rgba(255, 255, 255, 0.10);
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin: 5px 10px 0px 10px;
 }

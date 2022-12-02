@@ -5,8 +5,6 @@ import { AuthFormInterface, AuthFormProps } from "../../interfaces/intefaces";
 import styles from '../../styles/AuthFormComponent.module.css';
 import { Button } from "./Button";
 import arrow from '../../assets/arrow_right_alt_FILL0_wght400_GRAD0_opsz48.svg';
-import { AuthContext } from "../../context/AuthContext";
-import { AuthModalContext } from "../../context/AuthModalContext";
 import { useAuth } from "../../hooks/useAuth";
 
 
@@ -21,8 +19,11 @@ const inititalState = {
 export const AuthForm = ({ authState }: AuthFormProps) => {
     const [isUserAllowed, setIsUserAllowed] = useState<boolean | null>(null);
     const [isFormAllowed, setIsFormAllowed] = useState<boolean>(true);
-    const { handleChange, values } = useForm<AuthFormInterface>(inititalState);
+    const { handleChange, values, reset } = useForm<AuthFormInterface>(inititalState);
     const { userName, password, confirmPassword } = values;
+    useEffect(()=>{
+        reset();
+    },[authState])
     useEffect(() => {
         setIsFormAllowed(true);
         if (authState === "SIGN UP" && userName.trim().length >= 3) {
@@ -30,11 +31,11 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
             window.fetch(`${API}/users/get-user/${userName}`)
                 .then(res => res.json())
                 .then((user) => {
-                    // console.log(userName)
-                    if(user)
+                    if(user.userName)
                     {
                         console.log('not allowed')
                         setIsUserAllowed(false);
+                        setIsFormAllowed(true)
                     }else
                     {
                         console.log('allowed')
@@ -44,7 +45,7 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                 })
                 .catch(err => console.log(err))
         }
-        if( authState === "SIGN UP" && password.trim().length >=6 && password === confirmPassword){
+        if( authState === "SIGN UP" && password.trim().length >=6 && password === confirmPassword && isUserAllowed){
             setIsFormAllowed(false);
         }
         if( authState === "SIGN IN" && password.trim().length >=6 && userName.trim().length >= 3){
@@ -54,8 +55,8 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
 
     }, [authState, userName, password, confirmPassword])
   
-    const { signIn, signUp, logout } = useAuth();    
-    function onSubmit(e: React.FormEvent) {
+    const { signIn, signUp } = useAuth();    
+    async function onSubmit(e: React.FormEvent) {
         e.preventDefault();
         if (authState === "SIGN UP" && confirmPassword)
         {
@@ -63,7 +64,8 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
         }
         else if (authState === "SIGN IN")
         {
-            signIn(userName, password);
+            const res = await signIn(userName, password);
+            console.log(res)
         }
     }
     return (
@@ -84,11 +86,11 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                         User Name:
                     </label>
                     {
-                        userName.trim().length >= 3 &&
+                        userName.trim().length >= 3 && authState === "SIGN UP" &&
                         <span
                             className={`${styles.authFormInputRetro} ${isUserAllowed ? styles.allowed : styles.notAllowed}`}
                         >
-                            {isUserAllowed ? 'User Allowed' : 'User Exists'}
+                            {isUserAllowed? 'User Allowed' : 'User Exists'}
                         </span>
                     }
                 </div>
@@ -113,7 +115,7 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                         Password:
                     </label>
                     {
-                        password.trim().length >= 1 &&
+                        password.trim().length >= 1 && authState === "SIGN UP" &&
                         <span
                             className={`${styles.authFormInputRetro} ${password.trim().length >= 6 ? styles.allowed : styles.notAllowed}`}
                         >

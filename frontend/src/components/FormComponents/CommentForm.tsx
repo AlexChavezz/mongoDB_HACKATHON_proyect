@@ -14,7 +14,8 @@ export const CommentForm = ({ constellationData, setConstellationData }: Comment
     const { user } = useContext(AuthContext);
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if( user )
+        const isCommentEmpty = comment.trim().length === 0;
+        if( user && !isCommentEmpty)
         {
             // -> json to send
             const newComment = {
@@ -37,6 +38,7 @@ export const CommentForm = ({ constellationData, setConstellationData }: Comment
                 if( data.insertedId )
                 {
                     setConstellationData({...constellationData, comments: [...constellationData.comments, {...newComment, _id: data.insertedId}]});
+                    setComment("");
                 }
             }
             catch(error)
@@ -54,16 +56,22 @@ export const CommentForm = ({ constellationData, setConstellationData }: Comment
         const { value } = target;
         setComment(value);
     }
-
+   
     return (
         <form
         onSubmit={onSubmit}
             className={styles.commentFormContainer}
         >
+            <label 
+                htmlFor='comment'
+                className={styles.commentFormLabel}
+            >
+                Share your own comment: 
+            </label>
             <textarea
                 className={styles.commentFormTextArea}
                 placeholder='type your comment here'
-                name=''
+                name='comment'
                 value={comment}
                 onChange={onChangeComment}
             />

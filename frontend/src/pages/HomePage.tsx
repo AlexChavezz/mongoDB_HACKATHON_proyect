@@ -18,7 +18,6 @@ export const HomePage = () => {
             window.fetch(`${API}/autocomplete/${constellation}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.table(data)
                     return setAutoCompleteResults(data)
                 })
                 .catch(res => console.log(res));            
@@ -31,7 +30,7 @@ export const HomePage = () => {
     const inputHandleChange = ({ target }: ChangeEvent<HTMLInputElement>) => setConstellation(target.value);
     const onSubmit = (e:React.FormEvent) => {
         e.preventDefault();
-        navigate(`/universe/${constellation}`);
+         //navigate(`/universe/${constellation}`);
     }
 
 

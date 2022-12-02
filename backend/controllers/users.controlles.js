@@ -8,28 +8,12 @@ const usersCollection = client.db('ConstellationsDB').collection('users');
 
 const isUserExist = async (req, res) => {
     const { userName } = req.params;
-    // const pipeline = [
-    //     { $search: { autocomplete: { query: userName, path: "userName" }}},
-    //     { $project: { userName: 1 }}
-    // ];
-    // const user = await usersCollection.aggregate(pipeline).toArray();
-    // let isAllowed;
-    // 
     const user = await usersCollection.findOne({userName: {$eq: userName}});
-    res.json({userName: userName});
-    
-    // user.forEach((user) => user.userName === userName? isAllowed = false: isAllowed = true);
-    // res.status(200).json({isAllowed});
-    
-    // if(user.userName)
-    //     if (user.length === 0)
-//     {
-//         return res.status(200).json({isAllowed: true})
-//     }
-//     if (user[0].userName === userName) {
-//         return res.status(200).json({ isAllowed: false });
-//     }
-//     res.status(200).json({ isAllowed: true });
+    if( !user )
+    {
+        return res.status(400).json({message: "user name is not exist"});
+    }
+    res.json({userName: user.userName});    
 }
 
 const getUser = async (req, res) => {

@@ -1,24 +1,72 @@
-.contelationMainPage 
+.itemMainPage 
 {
-    /* width: 100%; */
     height: calc( 100vh - 75px );
     padding: 20px;
-    /* background-color:red; */
-    width: 1350px;
+    margin: 0px auto;
+    display: flex;
+    width: 1100px;
+    justify-content: center;
+}
+.itemMainPageContent
+{
+    width: 50%;
+    height: 100%;
+}
+.itemMainPageContentImage
+{
+    width: 255px;
+    /* height: 255px; */
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
     margin: 0px auto;
 }
-.constellationInfo
+
+.itemMainPageContentDescription
+{
+    color: #fffe;
+    font-size: .9rem;
+}
+
+.itemMainPageContentDescriptionName
+{
+    color: #fffe;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 10px 0px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 20px;
+}
+.itemMainPageContentDescriptionCategory
+{
+    display: block;
+    font-weight: 400;
+    color: #fffe;
+    font-size: .95rem;
+    margin-bottom: 10px;
+}
+.itemMainPageContentDescriptionExplanation
+{
+    font-size: .9rem;
+    font-weight: 100;
+}
+
+.itemMainPageContentImageImg
+{
+    width: 100%;
+}
+
+/* .constellationInfo
 {
     display: flex;
     height: calc(100% - 250px);
     width: 100%;
 }
-
 .constellationImageContainer
 {
     width: 70%;
     height: 100%;
-    /* background-color: red; */
     padding: 15px;
 }
 .constellationComments
@@ -28,6 +76,9 @@
     padding: 15px;
     border-radius: 5px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .constellationCommentsTitle
 {
@@ -39,7 +90,6 @@
 {
     height: 250px;
     padding: 15px;
-    /* background-color:rgba(204, 204, 204, 0.200);  */
     border-radius: 10px;
 }
 
@@ -57,14 +107,12 @@
 
 .constellationCommentsHeader
 {
-    height: 75%;
+    height: 90%;
     overflow-y: overlay;
-    /* overflow-y: scroll;
-    overflo */
 }
 
 .constellationCommentsForm
 {
     height: 25%;
 }
-
+ */

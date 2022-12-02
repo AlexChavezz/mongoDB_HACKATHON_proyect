@@ -23,8 +23,10 @@ export interface ConstellationState
 {
     _id: string,
     name: string,
-    myth: string,
-    comments: Comments[] | []
+    explanation: string,
+    image: string,
+    category: string,
+    comments: Comments[] | [],
 }
 
 export interface MainContainerProps
@@ -57,6 +59,7 @@ export type authState = "SIGN IN" | "SIGN UP";
 export interface AuthFormProps
 {
     authState: authState,
+    setAuthState: React.Dispatch<React.SetStateAction<authState>>
 }
 
 export interface AuthFormInterface

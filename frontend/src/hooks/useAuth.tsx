@@ -9,6 +9,7 @@ export const useAuth = () => {
     const { setShowAuthModal } = useContext(AuthModalContext);
 
     async function signIn(userName: string, password: string) {
+        let data;
         if(validateAuth(userName, password))
         {
             try {
@@ -20,6 +21,7 @@ export const useAuth = () => {
                     body: JSON.stringify({ userName, password })
                 });
                 const { token, ...rest } = await res.json();
+                data = { ...rest, token };
                 if (token) {
                     // -> save token in local storage
                     window.localStorage.setItem('token', JSON.stringify(token));
@@ -33,6 +35,7 @@ export const useAuth = () => {
                 console.log(error)
             }
         }
+        return data;
     }
 
 
