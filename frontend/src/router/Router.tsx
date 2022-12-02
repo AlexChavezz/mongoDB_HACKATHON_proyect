@@ -8,7 +8,7 @@ export const Router = () => {
         <BrowserRouter>
             <Routes>
                 <Route path='universe' element={<HomePage />} />
-                <Route path='universe/:constellation' element={<ItemPage />} />
+                <Route path='universe/:item' element={<ItemPage />} />
                 <Route path='*' element={<Page404/>} />
             </Routes>
         </BrowserRouter>

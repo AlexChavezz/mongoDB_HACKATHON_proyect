@@ -1,37 +1,36 @@
 import { MainContainer } from '../components/MainContainer';
-import { useNavigate, useNavigation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styles from '../styles/ConstellationPageStyles.module.css';
-import { Comments } from '../components/Comment';
+import { Comment } from '../components/Comment';
 import { API } from '../helpers/API';
-import { ConstellationState } from '../interfaces/intefaces';
+import { ItemDataState } from '../interfaces/intefaces';
 import { CommentForm } from '../components/FormComponents/CommentForm';
-import andromeda from '../assets/andromeda.jpg';
 
 const constelationState = {
     _id: '',
     name: '',
     explanation: '',
     image: '',
-    category:'',
+    category: '',
     comments: []
 }
 
 export const ItemPage = () => {
-    const { constellation } = useParams();
-    const [constellationData, setConstellationData] = useState<ConstellationState>(constelationState);
+    const { item } = useParams();
+    const [itemData, setItemData] = useState<ItemDataState>(constelationState);
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
-    // console.log(constellationData._id)
     useEffect(() => {
-        window.fetch(`${API}/getByName/${constellation}`)
+        window.fetch(`${API}/items/getByName/${item}`)
             .then(res => res.json())
             .then(data => {
-                if (data._id) return setConstellationData(data);
+                setIsLoading(false);
+                if (data._id) return setItemData(data);
                 navigate('/404');
             })
     }, [])
-    console.log(constellationData.image)
-    if (constellationData._id === '') return <div>Loading...</div>
+    console.log(itemData.comments)
     return (
         <MainContainer>
             <section
@@ -45,33 +44,52 @@ export const ItemPage = () => {
                     >
                         <img
                             className={styles.itemMainPageContentImageImg}
-                            src={constellationData.image} alt={constellationData.name} />
+                            src={itemData.image} alt={itemData.name} />
                     </div>
                     <div
                         className={styles.itemMainPageContentDescription}
                     >
+
                         <span
                             className={styles.itemMainPageContentDescriptionName}
                         >
-                            {constellationData.name}
+                            {itemData.name}
                         </span>
                         <span
                             className={styles.itemMainPageContentDescriptionCategory}
 
                         >
                             Category:  {" "}
-                            {constellationData.category}
+                            {itemData.category}
                         </span>
                         <p
                             className={styles.itemMainPageContentDescriptionExplanation}
-                        >{constellationData.explanation}</p>
+                        >{itemData.explanation}</p>
+
                     </div>
                 </article>
                 <article
                     className={styles.itemMainPageContent}
-
                 >
+                    <div
+                        className={styles.itemMainPageCommentsContainer}
+                    >
+                        <h3
+                            className={styles.itemMainPageContentDescriptionName}
+                        >COMMENTS</h3>
+                        <div
+                            className={isLoading ? styles.loadingContainer : styles.itemMainPageCommentsContainerComments}
+                        >
 
+                            {itemData.comments.map((comment) => <Comment {...comment} key={comment._id} />)}
+
+                        </div>
+                        <div
+                            className={styles.itemMainPageCommentsContainerForm}
+                        >
+                            <CommentForm itemData={itemData} setItemData={setItemData} />
+                        </div>
+                    </div>
                 </article>
             </section>
         </MainContainer>

@@ -1,27 +1,31 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { AuthModalContext } from '../../context/AuthModalContext';
 import { API } from '../../helpers/API';
-import { useAuth } from '../../hooks/useAuth';
 import { CommentFormProps } from '../../interfaces/intefaces';
 import styles from '../../styles/CommentFormComponentStyles.module.css';
-import { Comments } from '../Comment';
 import { Button } from './Button';
 
 
-export const CommentForm = ({ constellationData, setConstellationData }: CommentFormProps) => {
+export const CommentForm = ({ itemData, setItemData }: CommentFormProps) => {
 
     const [comment, setComment] = useState("");
     const { user } = useContext(AuthContext);
+    const { setShowAuthModal } = useContext(AuthModalContext);
     const onSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!user) {
+            setShowAuthModal(true);
+            return;
+        }
         const isCommentEmpty = comment.trim().length === 0;
         if( user && !isCommentEmpty)
         {
             // -> json to send
             const newComment = {
-                comment, 
+                comment,
                 user: user.userName,
-                constellation_id: constellationData._id,
+                item_id: itemData._id,
                 user_id: user._id,
             }
             // -> send comment to backend
@@ -35,9 +39,10 @@ export const CommentForm = ({ constellationData, setConstellationData }: Comment
                     body: JSON.stringify(newComment)
                 });
                 const data = await response.json();
+                console.log(data)
                 if( data.insertedId )
                 {
-                    setConstellationData({...constellationData, comments: [...constellationData.comments, {...newComment, _id: data.insertedId}]});
+                    setItemData({...itemData, comments: [...itemData.comments, {...newComment, _id: data.insertedId}]});
                     setComment("");
                 }
             }

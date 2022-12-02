@@ -12,14 +12,14 @@ export interface ButtonProps
 
 export interface Comments {
     _id: string,
-    constellation_id: string,
+    item_id: string,
     comment: string,
     user_id: string,
     user: string,
 }
 
 
-export interface ConstellationState
+export interface ItemDataState
 {
     _id: string,
     name: string,
@@ -84,6 +84,6 @@ export interface AuthContextInterface
 }
 
 export interface CommentFormProps {
-    constellationData: ConstellationState,
-    setConstellationData: React.Dispatch<React.SetStateAction<ConstellationState>>
+    itemData: ItemDataState,
+    setItemData: React.Dispatch<React.SetStateAction<ItemDataState>>
 }

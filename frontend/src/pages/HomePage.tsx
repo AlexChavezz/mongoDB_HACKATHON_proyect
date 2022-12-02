@@ -4,33 +4,31 @@ import searchImahge from '../assets/search_FILL0_wght400_GRAD0_opsz48.svg';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { API } from '../helpers/API';
 import { SearchResults } from '../components/SearchResults';
-import { useNavigate } from 'react-router-dom';
 
 export const HomePage = () => {
-    const [constellation, setConstellation] = useState<string>('');
+    const [item, ssetitem] = useState<string>('');
     const [autoCompleteResults, setAutoCompleteResults] = useState<{
         _id: string,
         name: string,
     }[] | []>([]);
 
     useEffect(() => {
-        if(constellation.length > 0) {
-            window.fetch(`${API}/autocomplete/${constellation}`)
+        if(item.length > 0) {
+            window.fetch(`${API}/items/autocomplete/${item}`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data)
                     return setAutoCompleteResults(data)
                 })
                 .catch(res => console.log(res));            
         }
         setAutoCompleteResults([]);
-    }, [constellation])
+    }, [item])
 
-    const navigate = useNavigate();
 
-    const inputHandleChange = ({ target }: ChangeEvent<HTMLInputElement>) => setConstellation(target.value);
+    const inputHandleChange = ({ target }: ChangeEvent<HTMLInputElement>) => ssetitem(target.value);
     const onSubmit = (e:React.FormEvent) => {
         e.preventDefault();
-         //navigate(`/universe/${constellation}`);
     }
 
 
@@ -47,7 +45,7 @@ export const HomePage = () => {
                         className={styles.inputText}
                         type="text"
                         name="constellation"
-                        value={constellation}
+                        value={item}
                         onChange={inputHandleChange}
                     />
                     <img

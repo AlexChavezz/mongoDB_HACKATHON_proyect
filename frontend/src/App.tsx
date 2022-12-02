@@ -9,7 +9,6 @@ import { Router } from './router/Router';
 export default () => {
   const [user, setUser] = useState<User | null>(null);
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
-  
   useEffect(()=>{
     // -> If token exists into localStorage, then try login user
     let token = window.localStorage.getItem('token');
