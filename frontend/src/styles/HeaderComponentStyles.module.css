@@ -3,7 +3,9 @@
     height: 75px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0px auto;
 }
 .mainContentHeaderButton
 {
@@ -57,4 +59,10 @@
 .mainContentHeaderModalText
 {
     font-size: 15px;
+}
+
+.mainContentHeaderNavLink
+{
+    color: #fffe;
+    margin: 0px 20px;
 }

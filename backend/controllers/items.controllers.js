@@ -14,6 +14,48 @@ const commentsConstellations = client.db('ConstellationsDB').collection('comment
 //     }
 // }
 
+const getByCategories = async (req, res) => {
+    const categories = req.body;
+    let categoriesArray = [];
+    for (let category in categories)
+    {
+        if(categories[category])
+        {
+            categoriesArray = [...categoriesArray, category]
+        }
+    }
+
+    const pipeline = [
+        {$search: {
+            "index":'serachByCategory',
+            "compound": {
+                "must": [{
+                    'text': {
+                        'query': categoriesArray,
+                        'path': 'category'
+                    },
+                }]
+            }
+        }}
+    ];
+
+    try
+    {
+        const results = await itemsCollection.aggregate(pipeline).toArray();
+        if(results)
+        {
+            return res.status(200).json(results);
+        }    
+    }
+    catch(error)
+    {
+        res.status(500).json({ message: 'INTERNAL SERVER ERROR' });
+    }
+}
+    
+
+
+
 const autoComplete = async (req, res) => {
     const { name } = req.params;
     try
@@ -54,5 +96,6 @@ const getByName = async(req, res) => {
 module.exports = {
     // getAllConstellations,
     getByName,
-    autoComplete
+    autoComplete,
+    getByCategories
 }

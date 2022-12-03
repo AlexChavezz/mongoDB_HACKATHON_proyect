@@ -3,9 +3,9 @@ import { AuthContext } from '../context/AuthContext';
 import { AuthModalContext } from '../context/AuthModalContext';
 import styles from '../styles/HeaderComponentStyles.module.css';
 import { Button } from './FormComponents/Button';
-import userIcon from '../assets/person_FILL0_wght400_GRAD0_opsz48.svg';
 import logoutIcon from '../assets/logout_FILL0_wght400_GRAD0_opsz48.svg';
 import { useAuth } from '../hooks/useAuth';
+import { NavLink, Link } from 'react-router-dom';
 
 export const Header = () => {
     const { setShowAuthModal } = useContext(AuthModalContext);
@@ -19,12 +19,24 @@ export const Header = () => {
         <header
             className={styles.mainContentHeader}
         >
+            <nav
+                className={styles.mainContentHeaderNavList}
+            >
+                <NavLink
+                    className={styles.mainContentHeaderNavLink}
+                    to='/universe'
+                >Search</NavLink>
+                <NavLink
+                    className={styles.mainContentHeaderNavLink}
+                    to='/search-by-category'
+                >Categories</NavLink>
+            </nav>
             {
                 user ?
                     (
                         <span
                             className={styles.mainContentHeaderUser}
-                            onClick={()=>setLittleModal(!littleModal)}
+                            onClick={() => setLittleModal(!littleModal)}
                         >{user.userName}</span>
                     )
                     :
@@ -41,14 +53,14 @@ export const Header = () => {
                 littleModal &&
                 <div
                     className={styles.mainContentHeaderModal}
-                    onClick={()=>{
+                    onClick={() => {
                         setLittleModal(false);
                         logout();
                     }}
                 >
-                    <img 
-                    className={styles.mainContentHeaderModalIcon}
-                    src={logoutIcon} alt="logout-icon" />
+                    <img
+                        className={styles.mainContentHeaderModalIcon}
+                        src={logoutIcon} alt="logout-icon" />
                     <p
                         className={styles.mainContentHeaderModalText}
                     >Logout</p>
