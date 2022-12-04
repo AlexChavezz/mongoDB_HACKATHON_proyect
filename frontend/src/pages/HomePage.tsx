@@ -17,7 +17,6 @@ export const HomePage = () => {
             window.fetch(`${API}/items/autocomplete/${item}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
                     return setAutoCompleteResults(data)
                 })
                 .catch(res => console.log(res));            

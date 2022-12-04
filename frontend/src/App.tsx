@@ -24,7 +24,6 @@ export default () => {
       .then((data) => {
         if(!data.token)
         {
-          console.log(token)
           window.localStorage.removeItem('token');
           setUser(null);
           return;

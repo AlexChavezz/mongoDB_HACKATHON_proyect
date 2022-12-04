@@ -15,6 +15,11 @@ const getByCategories = async (req, res) => {
         }
     }
 
+    if(categoriesArray.length === 0)
+    {
+        return res.status(200).json([]);
+    }
+
     const pipeline = [
         {$search: {
             "index":'serachByCategory',

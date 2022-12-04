@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { MainContainer } from "../components/MainContainer";
+import { API } from "../helpers/API";
 import styles from '../styles/SearchByTagCategoryPage.module.css';
 
 const initialState = {
@@ -22,10 +23,9 @@ export const SearchByTagCategory = () => {
     }
     const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log('submit');
         try 
         {
-            const response = await window.fetch('http://localhost:3000/api/items/getByCategories', {
+            const response = await window.fetch(`${API}/items/getByCategories`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -33,11 +33,11 @@ export const SearchByTagCategory = () => {
                 body: JSON.stringify(categories)
             })
             const data = await response.json();
-            console.log(data);
-            if(data)
+            if(data.length === 0)
             {
-                setData(data);
+                return setData([]);
             }
+            setData(data);
         }
         catch (error)
         {

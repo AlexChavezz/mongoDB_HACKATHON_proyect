@@ -9,7 +9,7 @@ const validateJWT = (req, res, next) =>
     }
     try
     {
-        const { uid } = verify(token, "shhhhh");
+        const { uid } = verify(token, process.env['SECRETORPRIVATEKEY']);
         req.uid = uid;
         next();
     }
