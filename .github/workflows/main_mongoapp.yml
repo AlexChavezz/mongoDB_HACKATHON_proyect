@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
+          app_location: "/backend" # App source code path
 
       - name: npm install, build, and test
         run: |
