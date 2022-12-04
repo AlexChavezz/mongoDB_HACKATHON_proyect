@@ -53,4 +53,4 @@ jobs:
           app-name: 'mongoapp'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E30BE76CB7B84AC9B5C7E6A6428E8406 }}
-          package: .
+          package: ./backend
