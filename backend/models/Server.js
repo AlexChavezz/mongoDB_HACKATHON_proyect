@@ -22,6 +22,9 @@ class Server {
         this.app.use(`${this.mainPath}/comments`, require('../routes/comments.routes'));
         this.app.use(`${this.mainPath}/items`, require('../routes/items.routes.js'));
         this.app.use(`${this.mainPath}/users`, require('../routes/users.routes.js'));
+        this.app.use(`/`, function(req, res){
+            res.send('Hello World');
+        });
     }
     async mongoConnect()
     {
