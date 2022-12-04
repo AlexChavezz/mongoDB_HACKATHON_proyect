@@ -3,7 +3,7 @@ import { ItemProps } from "../../interfaces/intefaces";
 import styles from '../../styles/ItemComponentStyles.module.css';
 
 
-export const Item = ({ name, image, category }: ItemProps) => {
+export const Item = ({ name, imageUrl, category }: ItemProps) => {
     return (
         <NavLink
         to={"/universe/" + name}
@@ -12,7 +12,7 @@ export const Item = ({ name, image, category }: ItemProps) => {
             <div
                 className={styles.itemImageContainer}
             >
-                <img className={styles.itemImage} src={image} alt={name} />
+                <img className={styles.itemImage} src={imageUrl} alt={name} />
             </div>
             <div
                 className={styles.itemInfoContainer}

@@ -24,7 +24,7 @@ export interface ItemDataState
     _id: string,
     name: string,
     explanation: string,
-    image: string,
+    imageUrl: string,
     category: string,
     comments: Comments[] | [],
 }
@@ -97,6 +97,6 @@ export interface FormControlProps {
 
 export interface ItemProps {
     name: string,
-    image: string,
+    imageUrl: string,
     category: string
 }

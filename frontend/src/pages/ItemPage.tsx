@@ -11,7 +11,7 @@ const constelationState = {
     _id: '',
     name: '',
     explanation: '',
-    image: '',
+    imageUrl: '',
     category: '',
     comments: []
 }
@@ -44,7 +44,7 @@ export const ItemPage = () => {
                     >
                         <img
                             className={styles.itemMainPageContentImageImg}
-                            src={itemData.image} alt={itemData.name} />
+                            src={itemData.imageUrl} alt={itemData.name} />
                     </div>
                     <div
                         className={styles.itemMainPageContentDescription}
