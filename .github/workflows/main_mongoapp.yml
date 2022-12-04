@@ -8,7 +8,11 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+  
+env:
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'MySln.Cardapi'    # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '3.1.200'
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -52,4 +56,4 @@ jobs:
           app-name: 'mongoapp'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1E439A0A940849F1ADD83C6611EC63DD }}
-          package: backend/
+          package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/backend'
