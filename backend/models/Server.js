@@ -2,6 +2,11 @@ const express = require('express');
 const dbConnection = require('../database/dbConnection');
 const cors = require('cors');
 
+const corsOptions = {
+    origin: 'https://delightful-smoke-038cf9010.2.azurestaticapps.net/',
+    optionsSuccessStatus: 200
+}
+
 class Server {
     constructor()
     {
@@ -15,16 +20,14 @@ class Server {
     middlewares()
     {
         this.app.use(express.json());
-        this.app.use(cors());
+        this.app.use(cors(corsOptions));
+        this.app.use(express.static('public'));
     }
     routes()
     {
         this.app.use(`${this.mainPath}/comments`, require('../routes/comments.routes'));
         this.app.use(`${this.mainPath}/items`, require('../routes/items.routes.js'));
         this.app.use(`${this.mainPath}/users`, require('../routes/users.routes.js'));
-        this.app.use(`/`, function(req, res){
-            res.send('Hello World');
-        });
     }
     async mongoConnect()
     {

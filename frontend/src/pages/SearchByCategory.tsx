@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { FormControl } from "../components/FormComponents/FormControl";
+import { Item } from "../components/FormComponents/Item";
 import { MainContainer } from "../components/MainContainer";
 import { API } from "../helpers/API";
 import styles from '../styles/SearchByTagCategoryPage.module.css';
@@ -8,6 +9,13 @@ const initialState = {
     planet: false,
     galaxy: false,
     star: false,
+    event: false,
+    constellation: false,
+    nebula: false,
+    comet: false,
+    asteroid: false,
+    moon: false,
+    blackhole: false,
 }
 
 export const SearchByTagCategory = () => {
@@ -53,7 +61,9 @@ export const SearchByTagCategory = () => {
                 <article
                     className={styles.searchByCategoryInputs}
                 >
+                    <p className={styles.searchBycategoryFormTitle}>Search by categories</p>
                     <form
+                        className={styles.searchByCategoryForm}
                         onSubmit={onSubmit}
                     >
                         <FormControl
@@ -71,6 +81,41 @@ export const SearchByTagCategory = () => {
                             checked={categories.galaxy}
                             setChecked={handleCheckboxChange}
                         />
+                        <FormControl
+                            name='event'
+                            checked={categories.event}
+                            setChecked={handleCheckboxChange}
+                        />
+                        <FormControl
+                            name='constellation'
+                            checked={categories.constellation}
+                            setChecked={handleCheckboxChange}
+                        />
+                        <FormControl
+                            name='nebula'
+                            checked={categories.nebula}
+                            setChecked={handleCheckboxChange}
+                        />
+                        <FormControl
+                            name='comet'
+                            checked={categories.comet}
+                            setChecked={handleCheckboxChange}
+                        />
+                        <FormControl
+                            name='asteroid'
+                            checked={categories.asteroid}
+                            setChecked={handleCheckboxChange}
+                        />
+                        <FormControl
+                            name='moon'
+                            checked={categories.moon}
+                            setChecked={handleCheckboxChange}
+                        />
+                         <FormControl
+                            name='blackhole'
+                            checked={categories.blackhole}
+                            setChecked={handleCheckboxChange}
+                        />
                         <input
                             type="submit"
                             value="Apply"
@@ -81,93 +126,11 @@ export const SearchByTagCategory = () => {
                 <article
                     className={styles.searchByCategoryResults}
                 >
-                    {/* <h3
-                        className={styles.searchByCategoryResultsTitle}
-                    >Results: </h3> */}
                     {
                         data.map((item: any) => <Item {...item} key={item._id}/>)
                     }
                 </article>
             </section>
         </MainContainer>
-    );
-}
-
-
-interface ItemProps {
-    name: string,
-    image: string,
-    category: string
-}
-
-const Item = ({ name, image, category }: ItemProps) => {
-    return (
-        <NavLink
-        to={"/universe/" + name}
-            className={styles.itemContainer}
-        >
-            <div
-                className={styles.itemImageContainer}
-            >
-                <img className={styles.itemImage} src={image} alt={name} />
-            </div>
-            <div
-                className={styles.itemInfoContainer}
-            >
-                <span
-                    className={styles.itemInfoName}
-                >Name: {" "}{name
-                }</span>
-                <span
-                    className={styles.itemInfoName}
-                >
-                    Category: {" "}{category}
-                </span>
-            </div>
-        </NavLink>
-    );
-}
-
-
-interface FormControlProps {
-    name: string,
-    checked: boolean,
-    setChecked: (event: React.ChangeEvent<HTMLInputElement>) => void,
-}
-
-// interface FromControlProps extends CategoryState {
-//     getCategoriesData: () => void,
-//     changeCategoriesState: (isChecked: boolean, name: string) => void,
-// }
-
-
-const FormControl = ({ checked, name, setChecked }: FormControlProps) => {
-    // const [checked, setChecked] = useState<boolean>(isChecked);
-    // const onChange = async ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    //     setChecked(!checked);
-
-    //     console.log(!checked)
-    //     changeCategoriesState(!checked, name);
-    //     await getCategoriesData();
-    // }
-
-    return (
-        <div
-            className={styles.searchByCategoryFormControl}
-        >
-            <label
-                htmlFor={name}
-                className={styles.searchByCategoryFormLabel}
-            >
-                {name}
-            </label>
-            <input
-                type="checkbox"
-                name={name}
-                checked={checked}
-                onChange={setChecked}
-                className={styles.checkbox}
-            />
-        </div>
     );
 }

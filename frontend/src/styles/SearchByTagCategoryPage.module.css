@@ -11,7 +11,7 @@
     width: 30%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
 .searchByCategoryResults
@@ -31,6 +31,10 @@
     font-weight: 400;
     padding: 20px;
 }
+.searchByCategoryForm
+{
+    width: 250px;
+}
 
 .applyButton
 {
@@ -41,63 +45,15 @@
     border: 1px solid #fffe;
     border-radius: 2px;
     cursor: pointer;
+    margin-top: 30px;
 }
 .applyButton:hover
 {
     background-color: #fffe;
     color: #000;
 }
-/* FORM */
-.searchByCategoryFormControl
-{
-    margin: 10px 0px;
-}
-.searchByCategoryFormLabel
+.searchBycategoryFormTitle
 {
     color: #fffe;
-    margin-right: 10px;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-}
-
-.checkbox
-{
-    height: 15px;
-    width: 15px;
-}
-
-
-/*
-    ITEM
-*/
-.itemContainer
-{
-    height: 400px;
-    width: 400px;
-    color:#fffe;
-}
-.itemImageContainer
-{
-    width: 100%;
-    height: 60%;
-}
-.itemImage
-{
-    width: 100%;
-    height: 100%;
-    /* HEREE */
-    object-fit: scale-down;
-}
-.itemInfoContainer
-{
-    height: 40%;
-    width: 100%;
-    padding: 20px;
-}
-.itemInfoName
-{
-    font-size: .9rem;
-    text-transform: uppercase;
-    display: block;
-    cursor: pointer;
+    margin-bottom: 20px;
 }

@@ -87,3 +87,16 @@ export interface CommentFormProps {
     itemData: ItemDataState,
     setItemData: React.Dispatch<React.SetStateAction<ItemDataState>>
 }
+
+
+export interface FormControlProps {
+    name: string,
+    checked: boolean,
+    setChecked: (event: React.ChangeEvent<HTMLInputElement>) => void,
+}
+
+export interface ItemProps {
+    name: string,
+    image: string,
+    category: string
+}
