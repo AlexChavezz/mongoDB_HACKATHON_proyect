@@ -7,7 +7,7 @@ class Server {
     {
         this.app = express();
         this.port = process.env['PORT'] || 3000;
-        this.mainPath = '/api';        
+        this.mainPath = '/api';  
         this.middlewares();
         this.mongoConnect();
         this.routes();

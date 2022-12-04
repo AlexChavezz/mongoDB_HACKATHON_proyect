@@ -1,8 +1,16 @@
 const client = require("../database/client");
-const { ObjectId } = require('mongodb')
+const { ObjectId } = require('mongodb');
+const isThereErrors = require("../helpers/isThereErrors");
 const commentsCollection = client.db('ConstellationsDB').collection('comments');
 
+
 const saveComment = async (req, res) => {
+
+    if(isThereErrors(req))
+    {
+        return res.status(400).json({ error: "comment does not be empty" });
+    }
+
     try {
         const { comment, user, user_id, item_id } = req.body;
         const response = await commentsCollection.insertOne({

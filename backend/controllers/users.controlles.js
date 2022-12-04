@@ -20,18 +20,24 @@ const getUser = async (req, res) => {
     const { userName, password } = req.body;
     if (isThereErrors(req))
     {
-        return res.status(400).json({ error: "User name or password are invalid" });
+        return res.status(400).json({ message: "User name or password are invalid" });
     }
     try
     {
         const user = await usersCollection.findOne({userName:{$eq:userName}});
-        if(user && bcryptjs.compareSync(password, user.password))
+
+        if(!user)
         {
-            const {password:pass , ...rest} = user;
-            const token = await generateJWT(user._id);
-            return res.status(200).json({...rest, token });
+            return res.status(400).json({message: "user name or password is incorrect"});
         }
-        return res.status(400).json({message: "user name or password is incorrect"});
+        if(!bcryptjs.compareSync(password, user.password))
+        {
+            return res.status(400).json({message: "user name or password is incorrect"});
+        }
+
+        const {password:pass , ...rest} = user;
+        const token = await generateJWT(user._id);
+        return res.status(200).json({...rest, token });
     } 
     catch(error)
     {
@@ -41,14 +47,17 @@ const getUser = async (req, res) => {
 }
 
 const saveUser = async (req, res) => {
-    const { userName, password, captcha } = req.body;
+    const { userName, password, confirmPassword } = req.body;
     if(isThereErrors(req))
     {
-        return res.status(400).json({ error: "invalid requirements" });
+        return res.status(400).json({ message: "invalid requirements" });
+    }
+    if(password !== confirmPassword)
+    {
+        return res.status(400).json({ message: "passwords are not equal" });
     }
     try
     {
-
         // -> validate that user name is not exist
         const user = await usersCollection.findOne({userName: {$eq:userName}});
         if( user )
@@ -57,22 +66,19 @@ const saveUser = async (req, res) => {
                 message: "user name is already exist",                
             });
         }
-
         // -> hash password 
         const salt = bcryptjs.genSaltSync(10);
         const hash = bcryptjs.hashSync(password, salt);
 
         // -> save user
         const response = await usersCollection.insertOne({ userName, password: hash });
-        if(response.acknowledged)
+        
+        if(!response.acknowledged)
         {
-            const token = await generateJWT(response.insertedId);
-            return res.status(201).json({userName, _id: response.insertedId, token});
+            res.status(400).json({ message: "User not created" })
         }
-        else
-        {
-            res.status(200).json({ message: "User not created" });            
-        }
+        const token = await generateJWT(response.insertedId);
+        return res.status(201).json({userName, _id: response.insertedId, token});
     }
     catch(error)
     {

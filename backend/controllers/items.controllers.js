@@ -2,21 +2,11 @@ const client = require("../database/client")
 
 const itemsCollection = client.db('ConstellationsDB').collection('Items');
 const commentsConstellations = client.db('ConstellationsDB').collection('comments');
-// const getAllConstellations = async (req, res) => {
-//     try
-//     {
-//         const results = await itemsCollection.find({}).toArray();
-//         res.json(results);
-//     }
-//     catch(error)
-//     {
-//         console.log(error);
-//     }
-// }
 
 const getByCategories = async (req, res) => {
     const categories = req.body;
     let categoriesArray = [];
+    // -> Get the categories that are true
     for (let category in categories)
     {
         if(categories[category])
@@ -94,7 +84,6 @@ const getByName = async(req, res) => {
 
 
 module.exports = {
-    // getAllConstellations,
     getByName,
     autoComplete,
     getByCategories
