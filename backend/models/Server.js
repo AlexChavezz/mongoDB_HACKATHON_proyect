@@ -2,10 +2,7 @@ const express = require('express');
 const dbConnection = require('../database/dbConnection');
 const cors = require('cors');
 
-const corsOptions = {
-    origin: 'https://delightful-smoke-038cf9010.2.azurestaticapps.net/',
-    optionsSuccessStatus: 200
-}
+
 
 class Server {
     constructor()
@@ -20,7 +17,7 @@ class Server {
     middlewares()
     {
         this.app.use(express.json());
-        this.app.use(cors(corsOptions));
+        this.app.use(cors());
         this.app.use(express.static('public'));
     }
     routes()
