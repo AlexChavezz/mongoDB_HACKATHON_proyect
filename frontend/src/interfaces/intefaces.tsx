@@ -45,6 +45,7 @@ export interface SearchResultsProps
     autoCompleteResults: [] | {
         _id: string;
         name: string;
+        category: string
     }[]
 }
 

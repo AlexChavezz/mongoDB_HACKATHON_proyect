@@ -16,11 +16,11 @@ export const SearchResults = ({ autoCompleteResults }: SearchResultsProps) => {
                                 className={styles.searchResultsContainerItem}
                                 key={element._id}
                             >
-                                <NavLink 
+                                <NavLink
                                     to={`/universe/${element.name}`}
                                     className={styles.searchResultsContainerLink}
-                                    >
-                                    {element.name}
+                                >
+                                    [{element.category}]:   {"  "}  {element.name}
                                 </NavLink>
                             </li>
                         )

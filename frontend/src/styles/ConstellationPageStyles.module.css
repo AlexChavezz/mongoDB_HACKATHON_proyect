@@ -16,7 +16,7 @@
 
 
 .itemMainPageContent::-webkit-scrollbar, .itemMainPageCommentsContainerComments::-webkit-scrollbar {
-  -webkit-appearance: none;
+  --webkit-appearance: none;
   width: 2px;
 }
 
@@ -74,6 +74,7 @@
 {
     font-size: .9rem;
     font-weight: 100;
+    white-space: pre-line;
 }
 
 .itemMainPageContentImageImg

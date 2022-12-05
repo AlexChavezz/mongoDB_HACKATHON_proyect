@@ -10,6 +10,7 @@ export const HomePage = () => {
     const [autoCompleteResults, setAutoCompleteResults] = useState<{
         _id: string,
         name: string,
+        category: string
     }[] | []>([]);
 
     useEffect(() => {
@@ -17,7 +18,7 @@ export const HomePage = () => {
             window.fetch(`${API}/items/autocomplete/${item}`)
                 .then(res => res.json())
                 .then(data => {
-                    return setAutoCompleteResults(data)
+                    return setAutoCompleteResults(data);
                 })
                 .catch(res => console.log(res));            
         }
