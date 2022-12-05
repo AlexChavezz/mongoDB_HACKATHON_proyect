@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
+import { Alert } from './components/Alert';
 import { AuthContainer } from './components/AuthContainer';
 import { AuthContext } from './context/AuthContext';
 import { AuthModalContext } from './context/AuthModalContext';
+import { ErrorContext } from './context/ErrorContext';
 import { API } from './helpers/API';
+import { useAlert } from './hooks/useAlert';
 import { User } from './interfaces/intefaces';
 import { Router } from './router/Router';
 
 export default () => {
   const [user, setUser] = useState<User | null>(null);
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(()=>{
     // -> If token exists into localStorage, then try login user
     let token = window.localStorage.getItem('token');
@@ -38,19 +43,27 @@ export default () => {
   },[])
   
   return (
-    <AuthContext.Provider value={{
-      user, 
-      setUser
+    <ErrorContext.Provider value={{
+      error,
+      setError
     }}>
-      <AuthModalContext.Provider value={{
-        showAuthModal,
-        setShowAuthModal
+      <AuthContext.Provider value={{
+        user, 
+        setUser
       }}>
-        {
-          showAuthModal && <AuthContainer />
-        }
-        <Router />
-      </AuthModalContext.Provider>
-    </AuthContext.Provider>
+        <AuthModalContext.Provider value={{
+          showAuthModal,
+          setShowAuthModal
+        }}>
+          {
+            showAuthModal && <AuthContainer />
+          }
+          {
+            error && <Alert />
+          }
+          <Router />
+        </AuthModalContext.Provider>
+      </AuthContext.Provider>
+    </ErrorContext.Provider>
   );
 }

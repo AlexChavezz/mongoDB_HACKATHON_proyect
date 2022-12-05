@@ -1,7 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import styles from '../styles/AuthContainerComponent.module.css';
-import closeIcon from '../assets/close_FILL0_wght400_GRAD0_opsz48.svg';
-import { AuthModalContext } from '../context/AuthModalContext';
 import { AuthForm } from './FormComponents/AuthForm';
 import { authState } from '../interfaces/intefaces';
 
@@ -10,10 +8,6 @@ import { authState } from '../interfaces/intefaces';
 export const AuthContainer = () => {
 
     const [authState, setAuthState] = useState<authState>("SIGN UP");
-    const { setShowAuthModal } = useContext(AuthModalContext);
-    const closeModal = () => {
-        setShowAuthModal(false);
-    }
     const toggleAuthState = () => {
         setAuthState(authState === "SIGN IN" ? "SIGN UP" : "SIGN IN");
     }
@@ -37,19 +31,12 @@ export const AuthContainer = () => {
                             authState === "SIGN IN" ? "If you have an account you can sign in." : "If you do not have an account you can create one."
                         }
                     </p>
-                    <img
-                        onClick={closeModal}
-                        src={closeIcon}
-                        alt="close-icon"
-                        className={styles.headerCloseIcon}
-                    />
                 </header>
                 <main
                     className={styles.authBody}
                 >
                     <AuthForm 
                         authState={authState}
-                        setAuthState={setAuthState}
                     />
                 </main>
                 <footer

@@ -1,0 +1,32 @@
+.alertContainer
+{
+    animation: alert-fade-in 200ms linear;
+    border: 1px solid #f5c2c7;
+    position: absolute;
+    bottom: 30px;
+    right: 0px;
+    left: 0px;
+    margin: auto;
+    width: 400px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #f8d7da;
+    color: #ff0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes alert-fade-in
+{
+    from
+    {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to
+    {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}

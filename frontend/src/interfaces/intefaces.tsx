@@ -60,7 +60,6 @@ export type authState = "SIGN IN" | "SIGN UP";
 export interface AuthFormProps
 {
     authState: authState,
-    setAuthState: React.Dispatch<React.SetStateAction<authState>>
 }
 
 export interface AuthFormInterface
@@ -100,4 +99,10 @@ export interface ItemProps {
     name: string,
     imageUrl: string,
     category: string
+}
+
+
+export interface ErrorContextInterface {
+    error: string | null,
+    setError: React.Dispatch<React.SetStateAction<string | null>>
 }

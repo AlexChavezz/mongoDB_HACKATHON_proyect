@@ -11,7 +11,7 @@ const isUserExist = async (req, res) => {
     const user = await usersCollection.findOne({userName: {$eq: userName}});
     if( !user )
     {
-        return res.status(400).json({message: "user name is not exist"});
+        return res.json({message: "user name is not exist"});
     }
     res.json({userName: user.userName});    
 }
@@ -52,10 +52,6 @@ const saveUser = async (req, res) => {
     {
         return res.status(400).json({ message: "invalid requirements" });
     }
-    if(password !== confirmPassword)
-    {
-        return res.status(400).json({ message: "passwords are not equal" });
-    }
     try
     {
         // -> validate that user name is not exist
@@ -66,6 +62,14 @@ const saveUser = async (req, res) => {
                 message: "user name is already exist",                
             });
         }
+
+        if(password !== confirmPassword)
+        {
+            console.log(password)
+            console.log(confirmPassword)
+            return res.status(400).json({ message: "passwords are not equal" });
+        }
+
         // -> hash password 
         const salt = bcryptjs.genSaltSync(10);
         const hash = bcryptjs.hashSync(password, salt);

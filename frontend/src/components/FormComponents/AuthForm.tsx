@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { API } from "../../helpers/API";
 import { useForm } from "../../hooks/useForm";
 import { AuthFormInterface, AuthFormProps } from "../../interfaces/intefaces";
@@ -6,6 +6,8 @@ import styles from '../../styles/AuthFormComponent.module.css';
 import { Button } from "./Button";
 import arrow from '../../assets/arrow_right_alt_FILL0_wght400_GRAD0_opsz48.svg';
 import { useAuth } from "../../hooks/useAuth";
+import closeIcon from '../../assets/close_FILL0_wght400_GRAD0_opsz48.svg';
+import { AuthModalContext } from "../../context/AuthModalContext";
 
 
 
@@ -21,30 +23,38 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
     const [isFormAllowed, setIsFormAllowed] = useState<boolean>(true);
     const { handleChange, values, reset } = useForm<AuthFormInterface>(inititalState);
     const { userName, password, confirmPassword } = values;
+    const { setShowAuthModal } = useContext(AuthModalContext);
+
+    const closeModal = () => {
+        setShowAuthModal(false);
+        reset();
+    }
     useEffect(()=>{
         reset();
     },[authState])
+    const ref = useRef(userName);
     useEffect(() => {
         setIsFormAllowed(true);
-        if (authState === "SIGN UP" && userName.trim().length >= 3) {
-            console.log(userName)
-            window.fetch(`${API}/users/get-user/${userName}`)
-                .then(res => res.json())
-                .then((user) => {
-                    if(user.userName)
-                    {
-                        console.log('not allowed')
-                        setIsUserAllowed(false);
-                        setIsFormAllowed(true)
-                    }else
-                    {
-                        console.log('allowed')
-                        setIsUserAllowed(true);
-
-                    }
-                })
-                .catch(err => console.log(err))
+        if( ref.current !== userName)
+        {
+            if (authState === "SIGN UP" && userName.trim().length >= 3) {
+                ref.current = userName;
+                window.fetch(`${API}/users/get-user/${userName}`)
+                    .then(res => res.json())
+                    .then((user) => {
+                        if(user.userName)
+                        {
+                            setIsUserAllowed(false);
+                            setIsFormAllowed(true)
+                        }else
+                        {
+                            setIsUserAllowed(true);    
+                        }
+                    })
+                    .catch(err => console.log(err))
+            }
         }
+       
         if( authState === "SIGN UP" && password.trim().length >=6 && password === confirmPassword && isUserAllowed){
             setIsFormAllowed(false);
         }
@@ -64,11 +74,11 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
         }
         else if (authState === "SIGN IN")
         {
-            const res = await signIn(userName, password);
-            console.log(res)
+           signIn(userName, password);
         }
     }
     return (
+        <>
         <form
             className={styles.authForm}
             onSubmit={onSubmit}
@@ -160,5 +170,12 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                 <img src={arrow} alt="arrow" className={styles.authImageButton} />
             </Button>
         </form>
+        <img
+            onClick={closeModal}
+            src={closeIcon} 
+            alt="close-icon"
+            className={styles.headerCloseIcon}
+        />
+        </>
     );
 }

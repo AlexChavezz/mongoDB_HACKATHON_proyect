@@ -15,6 +15,7 @@ export const Header = () => {
     }
     const { logout } = useAuth();
     const { user } = useContext(AuthContext);
+
     return (
         <header
             className={styles.mainContentHeader}

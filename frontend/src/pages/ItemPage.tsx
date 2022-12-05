@@ -30,7 +30,6 @@ export const ItemPage = () => {
                 navigate('/404');
             })
     }, [])
-    console.log(itemData.comments)
     return (
         <MainContainer>
             <section
