@@ -18,3 +18,12 @@
     height: 15px;
     width: 15px;
 }
+
+
+@media (max-width:920px)
+{
+    .searchByCategoryFormControl
+    {
+        margin: 10px 20px;
+    }
+}

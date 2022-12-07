@@ -29,3 +29,12 @@
     display: block;
     cursor: pointer;
 }
+
+@media (max-width:1425px)
+{
+    .itemContainer
+    {
+        height: 250px;
+        width: 250px;
+    }
+}

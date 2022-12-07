@@ -77,3 +77,55 @@
     color: #fffe;
     margin-bottom: 20px;
 }
+
+
+
+@media (max-width:1425px)
+{
+    .mainContentSearchByCategory
+    {
+        width: 90%;
+    }
+}
+
+@media (max-width:920px)
+{
+    .mainContentSearchByCategory
+    {
+        display: block;
+        overflow-y: overlay;
+    }
+    .searchByCategoryInputs
+    {
+        height: auto;
+        width: 100%;
+    }
+    .searchByCategoryForm
+    {
+        width: 100%;
+    }
+    .searchByCategoryForm > div 
+    {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .searchByCategoryResults {
+        margin-top: 30px;
+        width: 100%;
+    }
+    .applyButton
+    {
+        margin: 0px;
+    }
+    .applyButton:hover {
+        background-color: transparent;
+        color: #fffe;
+    }
+}
+
+@media (max-width:546px)
+{
+    .searchByCategoryResults {
+        justify-content: center;
+    }
+}

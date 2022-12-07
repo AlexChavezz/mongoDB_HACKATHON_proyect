@@ -47,6 +47,7 @@ export const HomePage = () => {
                         name="constellation"
                         value={item}
                         onChange={inputHandleChange}
+                        autoComplete="off"
                     />
                     <img
                         className={styles.searchImage}
