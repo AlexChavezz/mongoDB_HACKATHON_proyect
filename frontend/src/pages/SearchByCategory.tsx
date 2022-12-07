@@ -97,16 +97,6 @@ export const SearchByTagCategory = () => {
                             setChecked={handleCheckboxChange}
                         />
                         <FormControl
-                            name='comet'
-                            checked={categories.comet}
-                            setChecked={handleCheckboxChange}
-                        />
-                        <FormControl
-                            name='asteroid'
-                            checked={categories.asteroid}
-                            setChecked={handleCheckboxChange}
-                        />
-                        <FormControl
                             name='moon'
                             checked={categories.moon}
                             setChecked={handleCheckboxChange}
