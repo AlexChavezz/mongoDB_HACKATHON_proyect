@@ -3,16 +3,33 @@ import { Alert } from './components/Alert';
 import { AuthContainer } from './components/AuthContainer';
 import { AuthContext } from './context/AuthContext';
 import { AuthModalContext } from './context/AuthModalContext';
+import { CategoriesContext } from './context/CategoriesContext';
 import { ErrorContext } from './context/ErrorContext';
 import { API } from './helpers/API';
-import { useAlert } from './hooks/useAlert';
-import { User } from './interfaces/intefaces';
+import { CategoriesDataPerObject, User } from './interfaces/intefaces';
 import { Router } from './router/Router';
+
+export const initialState = {
+  planet: false,
+  galaxy: false,
+  star: false,
+  event: false,
+  constellation: false,
+  nebula: false,
+  comet: false,
+  asteroid: false,
+  moon: false,
+  blackhole: false,
+}
+
+
 
 export default () => {
   const [user, setUser] = useState<User | null>(null);
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [categories, setCategories] = useState<any>(initialState);
+  const [categoriesData, setCategoriesData] = useState<CategoriesDataPerObject[] | null>(null);
 
   useEffect(()=>{
     // -> If token exists into localStorage, then try login user
@@ -43,27 +60,34 @@ export default () => {
   },[])
   
   return (
-    <ErrorContext.Provider value={{
-      error,
-      setError
+    <CategoriesContext.Provider value={{
+      categories,
+      setCategories,
+      categoriesData, 
+      setCategoriesData
     }}>
-      <AuthContext.Provider value={{
-        user, 
-        setUser
+      <ErrorContext.Provider value={{
+        error,
+        setError
       }}>
-        <AuthModalContext.Provider value={{
-          showAuthModal,
-          setShowAuthModal
+        <AuthContext.Provider value={{
+          user, 
+          setUser
         }}>
-          {
-            showAuthModal && <AuthContainer />
-          }
-          {
-            error && <Alert />
-          }
-          <Router />
-        </AuthModalContext.Provider>
-      </AuthContext.Provider>
-    </ErrorContext.Provider>
+          <AuthModalContext.Provider value={{
+            showAuthModal,
+            setShowAuthModal
+          }}>
+            {
+              showAuthModal && <AuthContainer />
+            }
+            {
+              error && <Alert />
+            }
+            <Router />
+          </AuthModalContext.Provider>
+        </AuthContext.Provider>
+      </ErrorContext.Provider>
+    </CategoriesContext.Provider>
   );
 }

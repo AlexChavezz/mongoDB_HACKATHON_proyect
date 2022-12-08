@@ -6,6 +6,7 @@
     display: flex;
     width: 1100px;
     justify-content: center;
+    overflow-y: auto;
 }
 .itemMainPageContent
 {
@@ -113,4 +114,51 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width:1144px)
+{
+  .itemMainPageContentExplanation
+  {
+    width: 60%;
+  }
+  .itemMainPageContentComments
+  {
+    width: 40%
+  }
+}
+@media (max-width: 1100px)
+{
+  .itemMainPage
+  {
+    display: block;
+    width: 100%;
+  }
+  .itemMainPageContentExplanation
+  {
+    height: auto;
+    margin: 0px auto;
+  }
+  .itemMainPageContentComments
+  {
+    width: 60%;
+    margin: 0px auto;
+    margin-top: 30px;
+  }
+}
+@media (max-width: 568px)
+{
+  .itemMainPageContentExplanation
+  {
+    margin: 0px;
+    width: 100%;
+  }
+  .itemMainPageContentComments
+  {
+    width: 100%;
+  }
+  .itemMainPageCommentsContainer
+  {
+    padding: none;
+  }
 }

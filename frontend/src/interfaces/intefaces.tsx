@@ -106,3 +106,34 @@ export interface ErrorContextInterface {
     error: string | null,
     setError: React.Dispatch<React.SetStateAction<string | null>>
 }
+
+export interface CategoriesContextInterface
+{
+    categories:CategoriesState|any,
+    setCategories: React.Dispatch<React.SetStateAction<CategoriesState>>,
+    categoriesData: CategoriesDataPerObject[] | null,
+    setCategoriesData: React.Dispatch<React.SetStateAction<CategoriesDataPerObject[]|null>>
+}
+
+interface CategoriesState
+{
+    planet: boolean,
+    galaxy: boolean,
+    star: boolean,
+    event: boolean,
+    constellation: boolean,
+    nebula: boolean,
+    comet: boolean,
+    asteroid: boolean,
+    moon: boolean,
+    blackhole: boolean
+}
+
+
+export interface CategoriesDataPerObject
+{
+    name: string,
+    imageUrl: string,
+    category: string
+}
+

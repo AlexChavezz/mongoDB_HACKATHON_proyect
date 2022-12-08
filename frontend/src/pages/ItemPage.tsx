@@ -36,7 +36,7 @@ export const ItemPage = () => {
                 className={styles.itemMainPage}
             >
                 <article
-                    className={styles.itemMainPageContent}
+                    className={`${styles.itemMainPageContent} ${styles.itemMainPageContentExplanation}`}
                 >
                     <div
                         className={styles.itemMainPageContentImage}
@@ -68,7 +68,7 @@ export const ItemPage = () => {
                     </div>
                 </article>
                 <article
-                    className={styles.itemMainPageContent}
+                    className={`${styles.itemMainPageContent} ${styles.itemMainPageContentComments}`}
                 >
                     <div
                         className={styles.itemMainPageCommentsContainer}

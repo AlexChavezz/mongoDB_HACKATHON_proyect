@@ -38,3 +38,22 @@
     width: 24px;
     margin: auto;
 }
+
+@media (max-width: 568px)
+{
+    .Homeform
+    {
+        margin-top: 50px;
+    }
+    .HomeInputContainer
+    {
+        position: relative;
+        width: 853px;
+        height: 40px;
+        width: 80%;
+    }
+    .searchImage
+    {
+        width: 18px;
+    }
+}

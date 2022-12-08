@@ -1,57 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { FormControl } from "../components/FormComponents/FormControl";
 import { Item } from "../components/FormComponents/Item";
 import { MainContainer } from "../components/MainContainer";
-import { API } from "../helpers/API";
+import { CategoriesContext } from "../context/CategoriesContext";
+import { useCategories } from "../hooks/useCategories";
 import styles from '../styles/SearchByTagCategoryPage.module.css';
 
-const initialState = {
-    planet: false,
-    galaxy: false,
-    star: false,
-    event: false,
-    constellation: false,
-    nebula: false,
-    comet: false,
-    asteroid: false,
-    moon: false,
-    blackhole: false,
-}
 
 export const SearchByTagCategory = () => {
-    const [categories, setCategories] = useState<any>(initialState);
-    const [data, setData] = useState<any>([]);
-    const handleCheckboxChange = async ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-        setCategories({
-            ...categories,
-            [target.name]: !categories[target.name]
-        })
-
-
-    }
-    const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        try 
-        {
-            const response = await window.fetch(`${API}/items/getByCategories`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(categories)
-            })
-            const data = await response.json();
-            if(data.length === 0)
-            {
-                return setData([]);
-            }
-            setData(data);
-        }
-        catch (error)
-        {
-            console.log(error)
-        }
-    }
+    const { categories, categoriesData } = useContext(CategoriesContext);
+    const [ getAsyncItems, clearSyncItems, handleCategorieCheckboxChange ] = useCategories();
 
     return (
         <MainContainer>
@@ -64,55 +22,61 @@ export const SearchByTagCategory = () => {
                     <p className={styles.searchBycategoryFormTitle}>Search by categories</p>
                     <form
                         className={styles.searchByCategoryForm}
-                        onSubmit={onSubmit}
+                        onSubmit={getAsyncItems}
                     >
                         <div>
 
                             <FormControl
                                 name='planet'
                                 checked={categories.planet}
-                                setChecked={handleCheckboxChange}
+                                setChecked={handleCategorieCheckboxChange}
                             />
                             <FormControl
                                 name='star'
                                 checked={categories.star}
-                                setChecked={handleCheckboxChange}
+                                setChecked={handleCategorieCheckboxChange}
                             />
                             <FormControl
                                 name='galaxy'
                                 checked={categories.galaxy}
-                                setChecked={handleCheckboxChange}
+                                setChecked={handleCategorieCheckboxChange}
                             />
                             <FormControl
                                 name='event'
                                 checked={categories.event}
-                                setChecked={handleCheckboxChange}
+                                setChecked={handleCategorieCheckboxChange}
                             />
                             <FormControl
                                 name='constellation'
                                 checked={categories.constellation}
-                                setChecked={handleCheckboxChange}
+                                setChecked={handleCategorieCheckboxChange}
                             />
                             <FormControl
                                 name='nebula'
                                 checked={categories.nebula}
-                                setChecked={handleCheckboxChange}
+                                setChecked={handleCategorieCheckboxChange}
                             />
                             <FormControl
                                 name='moon'
                                 checked={categories.moon}
-                                setChecked={handleCheckboxChange}
+                                setChecked={handleCategorieCheckboxChange}
                             />
                             <FormControl
                                 name='blackhole'
                                 checked={categories.blackhole}
-                                setChecked={handleCheckboxChange}
+                                setChecked={handleCategorieCheckboxChange}
                             />
                         </div>
                         <input
                             type="submit"
                             value="Apply"
-                            className={styles.applyButton}
+                            className={`${styles.formButton}  ${styles.applyButton}`}
+                        />
+                         <input
+                            onClick={clearSyncItems}
+                            type="button"
+                            value="Clear"
+                            className={styles.formButton}
                         />
                     </form>
                 </article>
@@ -120,7 +84,7 @@ export const SearchByTagCategory = () => {
                     className={styles.searchByCategoryResults}
                 >
                     {
-                        data.map((item: any) => <Item {...item} key={item._id}/>)
+                        categoriesData && categoriesData.map((item: any) => <Item {...item} key={item._id}/>)
                     }
                 </article>
             </section>
