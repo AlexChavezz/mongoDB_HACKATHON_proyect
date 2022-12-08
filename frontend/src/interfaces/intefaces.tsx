@@ -125,7 +125,7 @@ interface CategoriesState
     nebula: boolean,
     comet: boolean,
     asteroid: boolean,
-    moon: boolean,
+    natural_satellites: boolean,
     blackhole: boolean
 }
 
