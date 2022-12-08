@@ -18,7 +18,7 @@ export const initialState = {
   nebula: false,
   comet: false,
   asteroid: false,
-  moon: false,
+  natural_satellites: false,
   blackhole: false,
 }
 
