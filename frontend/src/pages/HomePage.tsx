@@ -43,7 +43,7 @@ export const HomePage = () => {
                     <p
                         className={styles.initialText}
                     >
-                        To getting recomendations write names about space objects.
+                        To getting recommendations write names about space objects.
                         Hint: Try earth 
                     </p>
                     <div
