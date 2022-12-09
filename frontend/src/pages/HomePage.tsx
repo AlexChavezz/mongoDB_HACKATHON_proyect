@@ -34,31 +34,40 @@ export const HomePage = () => {
 
     return (
         <MainContainer>
-            <form
-                className={styles.Homeform}
-                onSubmit={onSubmit}
-            >
-                <div
-                    className={styles.HomeInputContainer}
+            <>
+               
+                <form
+                    className={styles.Homeform}
+                    onSubmit={onSubmit}
                 >
-                    <input
-                        className={styles.inputText}
-                        type="text"
-                        name="constellation"
-                        value={item}
-                        onChange={inputHandleChange}
-                        autoComplete="off"
-                    />
-                    <img
-                        className={styles.searchImage}
-                        src={searchImahge}
-                        alt="search-image"
-                    />
-                    {
-                        autoCompleteResults.length > 0 && <SearchResults autoCompleteResults={autoCompleteResults}/>
-                    }
-                </div>
-            </form>
+                    <p
+                        className={styles.initialText}
+                    >
+                        To getting recomendations write names about space objects.
+                        Hint: Try earth 
+                    </p>
+                    <div
+                        className={styles.HomeInputContainer}
+                    >
+                        <input
+                            className={styles.inputText}
+                            type="text"
+                            name="constellation"
+                            value={item}
+                            onChange={inputHandleChange}
+                            autoComplete="off"
+                        />
+                        <img
+                            className={styles.searchImage}
+                            src={searchImahge}
+                            alt="search-image"
+                        />
+                        {
+                            autoCompleteResults.length > 0 && <SearchResults autoCompleteResults={autoCompleteResults}/>
+                        }
+                    </div>
+                </form>
+            </>
         </MainContainer>
     );
 }

@@ -1,7 +1,7 @@
 import { FormControlProps } from "../../interfaces/intefaces";
 import styles from  '../../styles/FormControlComponentStyles.module.css';
 
-export const FormControl = ({ checked, name, setChecked }: FormControlProps) => {
+export const FormControl = ({ checked, name, setChecked, title }: FormControlProps) => {
 
     return (
         <div

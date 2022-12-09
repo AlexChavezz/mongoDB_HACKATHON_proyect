@@ -56,7 +56,7 @@ const autoComplete = async (req, res) => {
     try
     {
         const result = await itemsCollection.aggregate([
-            {$search: {autocomplete: {query: name, path: "name"}}},
+            {$search: {autocomplete: {query: name, path: "name" }}},
             {$limit:10},
             {$project: { name:1, category: 1 }}
         ]).toArray();

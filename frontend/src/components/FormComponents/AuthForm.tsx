@@ -20,7 +20,6 @@ const inititalState = {
 
 export const AuthForm = ({ authState }: AuthFormProps) => {
     const [isUserAllowed, setIsUserAllowed] = useState<boolean | null>(null);
-    const [isFormAllowed, setIsFormAllowed] = useState<boolean>(true);
     const { handleChange, values, reset } = useForm<AuthFormInterface>(inititalState);
     const { userName, password, confirmPassword } = values;
     const { setShowAuthModal } = useContext(AuthModalContext);
@@ -34,7 +33,6 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
     },[authState])
     const ref = useRef(userName);
     useEffect(() => {
-        setIsFormAllowed(true);
         if( ref.current !== userName)
         {
             if (authState === "SIGN UP" && userName.trim().length >= 3) {
@@ -45,7 +43,6 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                         if(user.userName)
                         {
                             setIsUserAllowed(false);
-                            setIsFormAllowed(true)
                         }else
                         {
                             setIsUserAllowed(true);    
@@ -53,24 +50,15 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                     })
                     .catch(err => console.log(err))
             }
-        }
-       
-        if( authState === "SIGN UP" && password.trim().length >=6 && password === confirmPassword && isUserAllowed){
-            setIsFormAllowed(false);
-        }
-        if( authState === "SIGN IN" && password.trim().length >=6 && userName.trim().length >= 3){
-            setIsFormAllowed(false);
-        }
-        
-
+        }       
     }, [authState, userName, password, confirmPassword])
   
     const { signIn, signUp } = useAuth();    
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault();
-        if (authState === "SIGN UP" && confirmPassword)
+        if (authState === "SIGN UP")
         {
-            signUp(userName, password, confirmPassword);
+            signUp(userName, password, confirmPassword? confirmPassword : '');
         }
         else if (authState === "SIGN IN")
         {
@@ -110,6 +98,7 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                     name="userName"
                     value={userName}
                     onChange={handleChange}
+                    autoComplete="off"
                 />
             </div>
             <div
@@ -139,6 +128,7 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                     name="password"
                     value={password}
                     onChange={handleChange}
+                    autoComplete="off"
                 />
             </div>
             {
@@ -158,14 +148,14 @@ export const AuthForm = ({ authState }: AuthFormProps) => {
                         name="confirmPassword"
                         value={confirmPassword}
                         onChange={handleChange}
+                        autoComplete="off"
                     />
                 </div>
             }
             <Button
                 text={authState}
                 onClick={() => { }}
-                className={`${!isFormAllowed ? styles.authFooterButton : styles.authFooterButtonDisabled}`}
-                isDisabled={isFormAllowed}
+                className={styles.authFooterButton}
             >
                 <img src={arrow} alt="arrow" className={styles.authImageButton} />
             </Button>

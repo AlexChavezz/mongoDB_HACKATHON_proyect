@@ -92,6 +92,7 @@ export interface CommentFormProps {
 export interface FormControlProps {
     name: string,
     checked: boolean,
+    title?: string,
     setChecked: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
@@ -125,7 +126,7 @@ interface CategoriesState
     nebula: boolean,
     comet: boolean,
     asteroid: boolean,
-    natural_satellites: boolean,
+    satellite: boolean,
     blackhole: boolean
 }
 

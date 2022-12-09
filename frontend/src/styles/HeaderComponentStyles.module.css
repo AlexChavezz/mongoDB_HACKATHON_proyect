@@ -74,3 +74,22 @@
     color: #fffe;
     margin: 0px 20px;
 }
+
+
+@media (max-width: 568px)
+{
+    .mainContentHeaderButton
+    {
+        margin-right: 10px;
+        height: 40px;
+        width: 90px;
+    }
+    .mainContentHeader
+    {
+        width: 100%;
+    }
+    .mainContentHeaderNavLink
+    {
+        font-size: .8rem;
+    }
+}
