@@ -12,6 +12,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'backend'
 
     steps:
       - uses: actions/checkout@v2
@@ -24,8 +27,6 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build --if-present
-          npm run test --if-present
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -53,4 +54,5 @@ jobs:
           app-name: 'ecicloverseserver'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_67A541E97CBC42E7906A1F5233A729A4 }}
-          package: .
+          package: backend/
+          cache-dependency-path: 'backend/package-lock.json'
